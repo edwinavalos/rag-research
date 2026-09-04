@@ -76,12 +76,21 @@ func New(m model.LLM, tools []tool.Tool, catalog string) (agent.Agent, error) {
 		catalogBlock = fmt.Sprintf("\nCorpus index — every doc in the corpus, one line each (path: summary). Consult this first. If nothing here plausibly covers the query, that's strong evidence the corpus doesn't cover it — don't let a tangentially related entry pull you into picking it as a fallback answer:\n%s\n", catalog)
 	}
 
+	fullInstruction := fmt.Sprintf(exploreInstruction, catalogBlock)
 	searchAgent, err := llmagent.New(llmagent.Config{
 		Name:        "explore_singleshot",
 		Description: "Searches the doc corpus thoroughly in one turn (parallel tool calls, no loop) and reports the best-answer document.",
 		Model:       m,
-		Instruction: fmt.Sprintf(exploreInstruction, catalogBlock),
-		Tools:       tools,
+		// InstructionProvider, not Instruction: the plain Instruction
+		// field templates {...} as session-state injections, and the
+		// catalog is full of doc summaries containing real code braces
+		// (e.g. "Sandbox.create({ timeout })") that adk-go tries to
+		// resolve as state keys and fails on ("state key does not
+		// exist"). InstructionProvider treats {} as literal text.
+		InstructionProvider: func(agent.ReadonlyContext) (string, error) {
+			return fullInstruction, nil
+		},
+		Tools: tools,
 		// Explicit cap rather than relying on the provider's unset-default
 		// behavior — see cmd/buildindex's buildSummarizeAgent for the bug
 		// that default silently caused (truncated JSON array, no error).

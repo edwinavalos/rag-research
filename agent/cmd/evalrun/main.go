@@ -58,6 +58,7 @@ type evalRecord struct {
 	Confidence     float64 `json:"confidence"`
 	Iterations     int64   `json:"iterations"`
 	Reasoning      string  `json:"reasoning"`
+	Evidence       string  `json:"evidence,omitempty"`
 	Hit            bool    `json:"hit"`
 	Acceptable     bool    `json:"acceptable_hit"`
 	ErrorMsg       string  `json:"error,omitempty"`
@@ -166,6 +167,7 @@ func main() {
 			rec.Confidence = result.Confidence
 			rec.Iterations = result.Iterations
 			rec.Reasoning = result.Reasoning
+			rec.Evidence = result.Evidence
 
 			if gt != nil {
 				rec.Hit, rec.Acceptable = score(result.DocPath, gt)
