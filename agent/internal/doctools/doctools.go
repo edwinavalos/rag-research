@@ -55,9 +55,10 @@ func New(corpusDir string) ([]tool.Tool, error) {
 	grepTool, err := functiontool.New(functiontool.Config{
 		Name: "grep_docs",
 		Description: "Search the text content of every markdown file in the corpus for a regular expression " +
-			"(case-insensitive). Returns matching file paths with the matching line and a snippet of " +
-			"surrounding context. Use this to find which doc actually discusses a term, error message, " +
-			"or concept, not just which filename mentions it.",
+			"(case-insensitive). Returns matching file paths with the matching line. Use this to find which " +
+			"doc actually discusses a term, error message, or concept, not just which filename mentions it. " +
+			"Pass context (or context_before/context_after) to get N surrounding lines per match — use this " +
+			"to judge relevance from the grep call itself instead of a follow-up read_doc round-trip.",
 	}, makeGrep(root))
 	if err != nil {
 		return nil, err
@@ -129,11 +130,23 @@ func makeGlob(root string) func(agent.Context, globInput) (globOutput, error) {
 
 type grepInput struct {
 	Pattern string `json:"pattern"`
+	// ContextBefore/ContextAfter mirror ripgrep's -B/-A: lines of
+	// surrounding context to include around each match, so the caller
+	// can judge relevance from the grep call itself rather than needing
+	// a follow-up read_doc round-trip. Context is symmetric: set only
+	// Context (mirrors -C) to apply the same value to both sides.
+	ContextBefore int `json:"context_before"`
+	ContextAfter  int `json:"context_after"`
+	Context       int `json:"context"`
 }
 
 type grepMatch struct {
-	File    string `json:"file"`
-	Line    int    `json:"line"`
+	File string `json:"file"`
+	Line int    `json:"line"`
+	// Snippet is the matching line plus any requested context, each
+	// line prefixed with its 1-based line number; the actual matching
+	// line is marked with ">" (mirrors ripgrep -n output with a match
+	// marker, since context lines alone don't say which one matched).
 	Snippet string `json:"snippet"`
 }
 
@@ -147,6 +160,10 @@ func makeGrep(root string) func(agent.Context, grepInput) (grepOutput, error) {
 		re, err := regexp.Compile("(?i)" + in.Pattern)
 		if err != nil {
 			return grepOutput{}, fmt.Errorf("doctools: invalid regex %q: %w", in.Pattern, err)
+		}
+		before, after := in.ContextBefore, in.ContextAfter
+		if in.Context > 0 {
+			before, after = in.Context, in.Context
 		}
 		var out grepOutput
 		err = filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
@@ -170,12 +187,13 @@ func makeGrep(root string) func(agent.Context, grepInput) (grepOutput, error) {
 				return nil // skip unreadable files rather than failing the whole search
 			}
 			rel, _ := filepath.Rel(root, path)
-			for i, line := range strings.Split(string(data), "\n") {
+			lines := strings.Split(string(data), "\n")
+			for i, line := range lines {
 				if re.MatchString(line) {
 					out.Matches = append(out.Matches, grepMatch{
 						File:    rel,
 						Line:    i + 1,
-						Snippet: strings.TrimSpace(line),
+						Snippet: buildSnippet(lines, i, before, after),
 					})
 					if len(out.Matches) >= maxGrepMatches {
 						out.Truncated = true
@@ -190,6 +208,29 @@ func makeGrep(root string) func(agent.Context, grepInput) (grepOutput, error) {
 		}
 		return out, nil
 	}
+}
+
+// buildSnippet renders the matched line (index i in lines) plus up to
+// `before`/`after` lines of surrounding context, each line numbered
+// 1-based, with the matched line marked.
+func buildSnippet(lines []string, i, before, after int) string {
+	start := i - before
+	if start < 0 {
+		start = 0
+	}
+	end := i + after
+	if end > len(lines)-1 {
+		end = len(lines) - 1
+	}
+	var sb strings.Builder
+	for n := start; n <= end; n++ {
+		marker := "  "
+		if n == i {
+			marker = "> "
+		}
+		fmt.Fprintf(&sb, "%s%d: %s\n", marker, n+1, strings.TrimRight(lines[n], "\r"))
+	}
+	return strings.TrimSuffix(sb.String(), "\n")
 }
 
 type readInput struct {
