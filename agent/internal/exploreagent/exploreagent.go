@@ -36,7 +36,8 @@ const exploreInstruction = `You are a document search specialist. You find the s
 This is a READ-ONLY exploration task: you only search and read, you never modify anything.
 
 Guidelines:
-- Use grep_docs to search file contents with regex — usually the fastest path to the right doc. Pass context: 3 (or similar) to see surrounding lines per match, so you can judge relevance without a separate read_doc call.
+- Use rank_docs as a good first move: it scores every doc in the corpus against your query terms (path match, title match, body match) and returns a ranked shortlist in one call, so you get a direct comparison across candidates instead of having to piece one together from raw grep hits.
+- Use grep_docs to search file contents with regex — good for finding exact terms, error messages, or code identifiers rank_docs' plain term scoring might not weight correctly. Pass context: 3 (or similar) to see surrounding lines per match, so you can judge relevance without a separate read_doc call.
 - Use glob_docs for broad filename/path pattern discovery, e.g. "**/*.md", "runtime/**/*.md", "**/kv/*.md".
 - Use read_doc when you have a specific candidate file path to confirm.
 - Be thorough: this task warrants a VERY THOROUGH search. Wherever possible, issue multiple tool calls in parallel — several grep_docs calls with different terms, or several read_doc calls on candidate files at once — rather than one call at a time, so you cover more ground per round of thinking.

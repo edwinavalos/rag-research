@@ -66,13 +66,25 @@ func New(corpusDir string) ([]tool.Tool, error) {
 
 	readTool, err := functiontool.New(functiontool.Config{
 		Name:        "read_doc",
-		Description: "Read the full text content of one markdown file, given its path relative to the corpus root (as returned by glob_docs or grep_docs).",
+		Description: "Read the full text content of one markdown file, given its path relative to the corpus root (as returned by glob_docs, grep_docs, or rank_docs).",
 	}, makeRead(root))
 	if err != nil {
 		return nil, err
 	}
 
-	return []tool.Tool{globTool, grepTool, readTool}, nil
+	rankTool, err := functiontool.New(functiontool.Config{
+		Name: "rank_docs",
+		Description: "Rank every doc in the corpus by relevance to a free-text query and return a shortlist, " +
+			"each with its score and title — unlike grep_docs (which returns unordered line matches), this " +
+			"gives you a single ranked comparison across candidates in one call. Scoring weights path/filename " +
+			"term matches highest, then title/heading matches, then body term matches. Good first call for a " +
+			"new query, or to directly compare several already-found candidates against each other.",
+	}, makeRank(root))
+	if err != nil {
+		return nil, err
+	}
+
+	return []tool.Tool{globTool, grepTool, readTool, rankTool}, nil
 }
 
 type globInput struct {
@@ -231,6 +243,176 @@ func buildSnippet(lines []string, i, before, after int) string {
 		fmt.Fprintf(&sb, "%s%d: %s\n", marker, n+1, strings.TrimRight(lines[n], "\r"))
 	}
 	return strings.TrimSuffix(sb.String(), "\n")
+}
+
+// rank_docs — a weighted keyword scorer modeled on Claude Code's
+// ToolSearchTool (src/tools/ToolSearchTool/ToolSearchTool.ts
+// searchToolsWithKeywords), which solves the same shape of problem for
+// finding the right tool among many: score every candidate by term
+// overlap, weighted by where the term matched, and return the ranked
+// shortlist — rather than the model having to eyeball an unordered dump
+// of grep hits itself.
+const (
+	defaultRankLimit = 10
+	maxRankLimit     = 50
+
+	scorePathExact  = 10
+	scorePathPrefix = 5
+	scorePathSubstr = 3
+	scoreTitle      = 6
+	scoreBody       = 2
+)
+
+type rankInput struct {
+	Query string `json:"query"`
+	Limit int    `json:"limit"` // default 10, max 50; 0 means default
+}
+
+type rankedDoc struct {
+	File  string `json:"file"`
+	Score int    `json:"score"`
+	Title string `json:"title"`
+}
+
+type rankOutput struct {
+	Results         []rankedDoc `json:"results"`
+	TotalCandidates int         `json:"total_candidates"`
+}
+
+var termSplitRe = regexp.MustCompile(`[^a-zA-Z0-9]+`)
+
+func splitTerms(s string) []string {
+	var terms []string
+	for _, t := range termSplitRe.Split(strings.ToLower(s), -1) {
+		if len(t) >= 2 {
+			terms = append(terms, t)
+		}
+	}
+	return terms
+}
+
+// docTitle returns the first Markdown H1/H2 heading, or the first
+// non-empty line if the doc has none — a cheap proxy for "what is this
+// page about" without a full frontmatter/AST parser.
+func docTitle(content string) string {
+	for _, line := range strings.Split(content, "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		return strings.TrimLeft(strings.TrimSpace(strings.TrimLeft(line, "#")), " ")
+	}
+	return ""
+}
+
+func makeRank(root string) func(agent.Context, rankInput) (rankOutput, error) {
+	return func(_ agent.Context, in rankInput) (rankOutput, error) {
+		terms := splitTerms(in.Query)
+		if len(terms) == 0 {
+			return rankOutput{}, fmt.Errorf("doctools: query has no usable terms")
+		}
+		limit := in.Limit
+		if limit <= 0 {
+			limit = defaultRankLimit
+		}
+		if limit > maxRankLimit {
+			limit = maxRankLimit
+		}
+
+		termRes := make([]*regexp.Regexp, len(terms))
+		for i, term := range terms {
+			termRes[i] = regexp.MustCompile(`\b` + regexp.QuoteMeta(term) + `\b`)
+		}
+
+		var candidates int
+		var scored []rankedDoc
+		err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+			if d.IsDir() {
+				if d.Name() == ".git" || d.Name() == "node_modules" {
+					return filepath.SkipDir
+				}
+				return nil
+			}
+			if !strings.HasSuffix(d.Name(), ".md") {
+				return nil
+			}
+			data, err := os.ReadFile(path)
+			if err != nil {
+				return nil
+			}
+			candidates++
+			rel, _ := filepath.Rel(root, path)
+			rel = filepath.ToSlash(rel)
+			content := string(data)
+			title := docTitle(content)
+			score := scoreDoc(terms, termRes, rel, title, content)
+			if score > 0 {
+				scored = append(scored, rankedDoc{File: rel, Score: score, Title: title})
+			}
+			return nil
+		})
+		if err != nil {
+			return rankOutput{}, fmt.Errorf("doctools: walk: %w", err)
+		}
+
+		sort.Slice(scored, func(i, j int) bool {
+			if scored[i].Score != scored[j].Score {
+				return scored[i].Score > scored[j].Score
+			}
+			return scored[i].File < scored[j].File // stable tie-break
+		})
+		if len(scored) > limit {
+			scored = scored[:limit]
+		}
+		return rankOutput{Results: scored, TotalCandidates: candidates}, nil
+	}
+}
+
+func scoreDoc(terms []string, termRes []*regexp.Regexp, path, title, content string) int {
+	pathParts := termSplitRe.Split(strings.ToLower(path), -1)
+	pathLower := strings.ToLower(path)
+	titleLower := strings.ToLower(title)
+	contentLower := strings.ToLower(content)
+
+	score := 0
+	for i, term := range terms {
+		switch {
+		case containsExact(pathParts, term):
+			score += scorePathExact
+		case containsPrefix(pathParts, term):
+			score += scorePathPrefix
+		case strings.Contains(pathLower, term):
+			score += scorePathSubstr
+		}
+		if termRes[i].MatchString(titleLower) {
+			score += scoreTitle
+		}
+		if termRes[i].MatchString(contentLower) {
+			score += scoreBody
+		}
+	}
+	return score
+}
+
+func containsExact(parts []string, term string) bool {
+	for _, p := range parts {
+		if p == term {
+			return true
+		}
+	}
+	return false
+}
+
+func containsPrefix(parts []string, term string) bool {
+	for _, p := range parts {
+		if strings.HasPrefix(p, term) {
+			return true
+		}
+	}
+	return false
 }
 
 type readInput struct {
