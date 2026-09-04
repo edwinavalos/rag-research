@@ -1,7 +1,9 @@
 // Package doctools implements the three tools the exploration agent uses
-// to find documents: list (glob-ish filename search), grep (content
-// search), and read (fetch one file). All three are sandboxed to a single
-// root directory so the agent can only ever see the corpus, mirroring how
+// to find documents — glob (file pattern matching), grep (content
+// search), and read (fetch one file) — modeled directly on Claude Code's
+// real GlobTool/GrepTool/FileReadTool (src/tools/{Glob,Grep,FileRead}Tool
+// in the claude-code repo). All three are sandboxed to a single root
+// directory so the agent can only ever see the corpus, mirroring how
 // Claude Code scopes its own file tools to a project root.
 package doctools
 
@@ -14,13 +16,15 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/bmatcuk/doublestar/v4"
+
 	"google.golang.org/adk/v2/agent"
 	"google.golang.org/adk/v2/tool"
 	"google.golang.org/adk/v2/tool/functiontool"
 )
 
 const (
-	maxListResults = 200
+	maxGlobResults = 200
 	maxGrepMatches = 60
 	maxReadBytes   = 60_000 // ~15k tokens; plenty for one doc page
 )
@@ -37,12 +41,13 @@ func New(corpusDir string) ([]tool.Tool, error) {
 		return nil, fmt.Errorf("doctools: corpus dir %q not found", root)
 	}
 
-	listTool, err := functiontool.New(functiontool.Config{
-		Name: "list_docs",
-		Description: "List markdown file paths in the corpus whose path contains the given substring " +
-			"(case-insensitive). Use an empty substring to list a sample of the whole corpus. " +
-			"Returns paths relative to the corpus root, e.g. \"runtime/fundamentals/permissions.md\".",
-	}, makeList(root))
+	globTool, err := functiontool.New(functiontool.Config{
+		Name: "glob_docs",
+		Description: "Fast file pattern matching over the doc corpus, using standard glob syntax including \"**\" " +
+			"for recursive matching (e.g. \"**/*.md\", \"runtime/**/*.md\", \"**/kv/*.md\", \"deploy/*.md\"). " +
+			"Returns matching paths relative to the corpus root, sorted. Use this to find files by name/path " +
+			"pattern; use grep_docs instead when you need to search file contents.",
+	}, makeGlob(root))
 	if err != nil {
 		return nil, err
 	}
@@ -60,28 +65,34 @@ func New(corpusDir string) ([]tool.Tool, error) {
 
 	readTool, err := functiontool.New(functiontool.Config{
 		Name:        "read_doc",
-		Description: "Read the full text content of one markdown file, given its path relative to the corpus root (as returned by list_docs or grep_docs).",
+		Description: "Read the full text content of one markdown file, given its path relative to the corpus root (as returned by glob_docs or grep_docs).",
 	}, makeRead(root))
 	if err != nil {
 		return nil, err
 	}
 
-	return []tool.Tool{listTool, grepTool, readTool}, nil
+	return []tool.Tool{globTool, grepTool, readTool}, nil
 }
 
-type listInput struct {
-	Substring string `json:"substring"`
+type globInput struct {
+	Pattern string `json:"pattern"`
 }
 
-type listOutput struct {
+type globOutput struct {
 	Paths     []string `json:"paths"`
 	Total     int      `json:"total_matching"`
 	Truncated bool     `json:"truncated"`
 }
 
-func makeList(root string) func(agent.Context, listInput) (listOutput, error) {
-	return func(_ agent.Context, in listInput) (listOutput, error) {
-		needle := strings.ToLower(in.Substring)
+func makeGlob(root string) func(agent.Context, globInput) (globOutput, error) {
+	return func(_ agent.Context, in globInput) (globOutput, error) {
+		pattern := in.Pattern
+		if pattern == "" {
+			pattern = "**/*.md"
+		}
+		if !doublestar.ValidatePattern(pattern) {
+			return globOutput{}, fmt.Errorf("doctools: invalid glob pattern %q", pattern)
+		}
 		var matches []string
 		err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
@@ -97,21 +108,22 @@ func makeList(root string) func(agent.Context, listInput) (listOutput, error) {
 				return nil
 			}
 			rel, _ := filepath.Rel(root, path)
-			if needle == "" || strings.Contains(strings.ToLower(rel), needle) {
+			rel = filepath.ToSlash(rel)
+			if ok, _ := doublestar.Match(pattern, rel); ok {
 				matches = append(matches, rel)
 			}
 			return nil
 		})
 		if err != nil {
-			return listOutput{}, fmt.Errorf("doctools: walk: %w", err)
+			return globOutput{}, fmt.Errorf("doctools: walk: %w", err)
 		}
 		sort.Strings(matches)
 		total := len(matches)
-		truncated := total > maxListResults
+		truncated := total > maxGlobResults
 		if truncated {
-			matches = matches[:maxListResults]
+			matches = matches[:maxGlobResults]
 		}
-		return listOutput{Paths: matches, Total: total, Truncated: truncated}, nil
+		return globOutput{Paths: matches, Total: total, Truncated: truncated}, nil
 	}
 }
 

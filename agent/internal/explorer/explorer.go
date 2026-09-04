@@ -63,7 +63,7 @@ const searchInstruction = `You are searching a corpus of Deno documentation mark
 
 You are given a JSON object describing the exploration so far: the original query, prior findings from earlier search rounds (if any), and an instruction for what to focus on this round.
 
-Use the list_docs, grep_docs, and read_doc tools to investigate. Prefer grep_docs to find where a term or error is actually discussed; use read_doc to confirm a candidate file really answers the query before naming it.
+Use the glob_docs, grep_docs, and read_doc tools to investigate. Prefer grep_docs to find where a term or error is actually discussed; use glob_docs for broad path/filename pattern discovery (e.g. "**/kv/*.md"); use read_doc to confirm a candidate file really answers the query before naming it.
 
 When you are done searching this round, respond with ONLY a JSON object (no prose, no markdown fences) with this shape:
 {
