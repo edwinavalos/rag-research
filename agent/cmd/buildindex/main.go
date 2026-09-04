@@ -37,7 +37,7 @@ import (
 const summarizeInstruction = `You are building a search index over a documentation corpus. You will be given a batch of documents, each as a path and a content excerpt.
 
 For EACH document, in the same order as given, produce:
-- "path": copied exactly as given — never alter it.
+- "path": the exact value that follows "PATH:" for that document — copy only the path itself, not the "PATH:" label.
 - "title": a short title for the page, drawn from its own heading if it has one.
 - "summary": ONE sentence, at most 140 characters, describing SPECIFICALLY and CONCISELY what unique information this page provides. Be concrete about the exact topic, API, error, or task it covers — someone will scan hundreds of these summaries to judge whether a page answers a specific question, so avoid generic phrasing like "This page describes..." or "This document covers...". Name the actual thing.
 
@@ -128,11 +128,18 @@ func listMarkdownFiles(root string) ([]string, error) {
 
 func buildSummarizeAgent(m model.LLM) (agent.Agent, error) {
 	sa, err := llmagent.New(llmagent.Config{
-		Name:         "summarize_batch",
-		Description:  "Summarizes a batch of docs into short catalog entries.",
-		Model:        m,
-		Instruction:  summarizeInstruction,
-		OutputSchema: batchSchema(),
+		Name:        "summarize_batch",
+		Description: "Summarizes a batch of docs into short catalog entries.",
+		Model:       m,
+		Instruction: summarizeInstruction,
+		// Without an explicit cap, openaimodel only sets max_output_tokens
+		// if GenerateContentConfig.MaxOutputTokens > 0 (adk-go
+		// model/openaimodel/request.go) — left unset, the provider's own
+		// default silently truncated a 15-entry array partway through
+		// (still schema-valid as a shorter array, so no error surfaced;
+		// ~half of every batch fell back to heuristic titles).
+		GenerateContentConfig: &genai.GenerateContentConfig{MaxOutputTokens: 8192},
+		OutputSchema:          batchSchema(),
 	})
 	if err != nil {
 		return nil, err
@@ -198,7 +205,12 @@ func summarizeBatch(ctx context.Context, a agent.Agent, root string, batch []str
 		if len(excerpt) > excerptChars {
 			excerpt = excerpt[:excerptChars]
 		}
-		fmt.Fprintf(&sb, "### %s\n%s\n\n", p, excerpt)
+		// PATH: / CONTENT: labels, not a markdown "### path" heading: the
+		// model was found (via BUILDINDEX_DEBUG) to sometimes echo the
+		// literal "### " back as part of the path field, treating it as
+		// part of the heading text rather than a delimiter. Explicit
+		// labels remove that ambiguity.
+		fmt.Fprintf(&sb, "--- BEGIN DOC ---\nPATH: %s\nCONTENT:\n%s\n--- END DOC ---\n\n", p, excerpt)
 	}
 
 	r, err := runner.NewInMemory("buildindex", a)
@@ -218,12 +230,25 @@ func summarizeBatch(ctx context.Context, a agent.Agent, root string, batch []str
 		}
 		if entries, ok := coerceEntries(ev.Output); ok {
 			result = entries
+		} else if os.Getenv("BUILDINDEX_DEBUG") != "" {
+			fmt.Printf("    [debug] uncoercible output: %#v\n", ev.Output)
 		}
+	}
+	if os.Getenv("BUILDINDEX_DEBUG") != "" {
+		fmt.Printf("    [debug] requested %d, got %d entries: %v\n", len(batch), len(result), entryPaths(result))
 	}
 	if result == nil {
 		return nil, fmt.Errorf("no output observed")
 	}
 	return result, nil
+}
+
+func entryPaths(entries []indexer.Entry) []string {
+	paths := make([]string, len(entries))
+	for i, e := range entries {
+		paths[i] = e.Path
+	}
+	return paths
 }
 
 // coerceEntries accepts either batchResult directly (a FunctionNode's

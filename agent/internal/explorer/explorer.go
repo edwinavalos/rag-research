@@ -57,6 +57,12 @@ type Result struct {
 	Confidence float64 `json:"confidence"`
 	Iterations int64   `json:"iterations"`
 	Reasoning  string  `json:"reasoning"`
+	// Evidence is a quoted passage supporting DocPath, used by
+	// internal/exploreagent's calibration instruction ("cite or abstain"
+	// instead of a bare self-reported confidence float). Left empty by
+	// the graph method for now — this experiment is scoped to
+	// single-shot; the graph's Judged type has no equivalent field.
+	Evidence string `json:"evidence"`
 }
 
 const searchInstruction = `You are searching a corpus of Deno documentation markdown files to find the single best document that answers a user's query.

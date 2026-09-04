@@ -26,6 +26,7 @@ import (
 	"raggraph/internal/doctools"
 	"raggraph/internal/exploreagent"
 	"raggraph/internal/explorer"
+	"raggraph/internal/indexer"
 	"raggraph/internal/llmprovider"
 )
 
@@ -76,6 +77,7 @@ func main() {
 		onlyID       = flag.String("id", "", "if set, only run the query with this id")
 		requestDelay = flag.Duration("request-delay", 3*time.Second, "fixed pause before every Anthropic API call (anthropic provider only; proactive rate-limit spacing)")
 		queryDelay   = flag.Duration("query-delay", 5*time.Second, "fixed pause between queries, on top of request-delay")
+		indexPath    = flag.String("index", "../index/corpus_index.json", "path to the corpus catalog built by cmd/buildindex (single-shot method only); missing file just means no catalog")
 	)
 	flag.Parse()
 
@@ -111,7 +113,18 @@ func main() {
 		log.Fatalf("build doc tools: %v", err)
 	}
 
-	explorerAgent, err := buildAgent(*method, m, tools)
+	catalogEntries, err := indexer.Load(*indexPath)
+	if err != nil {
+		log.Fatalf("load catalog: %v", err)
+	}
+	catalog := indexer.FormatCatalog(catalogEntries)
+	if catalog == "" {
+		fmt.Println("(no catalog found at", *indexPath, "- running without one)")
+	} else {
+		fmt.Printf("loaded catalog: %d entries\n", len(catalogEntries))
+	}
+
+	explorerAgent, err := buildAgent(*method, m, tools, catalog)
 	if err != nil {
 		log.Fatalf("build agent: %v", err)
 	}
@@ -190,12 +203,12 @@ func main() {
 // with the same contract — Start receives the raw query string, the
 // terminal node emits explorer.Result — so runOne and scoring are
 // identical regardless of which one is chosen.
-func buildAgent(method string, m model.LLM, tools []tool.Tool) (agent.Agent, error) {
+func buildAgent(method string, m model.LLM, tools []tool.Tool, catalog string) (agent.Agent, error) {
 	switch method {
 	case "graph":
 		return explorer.New(m, tools)
 	case "single-shot":
-		return exploreagent.New(m, tools)
+		return exploreagent.New(m, tools, catalog)
 	default:
 		return nil, fmt.Errorf("unknown method %q (want \"graph\" or \"single-shot\")", method)
 	}
