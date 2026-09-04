@@ -1,0 +1,2287 @@
+[
+  {
+    "path": "AGENTS.md",
+    "title": "Working on the Deno docs",
+    "summary": "Contributing/agent rules for the docs.deno.com Lume site, including where content and section nav config live."
+  },
+  {
+    "path": "README.md",
+    "title": "Deno Docs",
+    "summary": "How to run the Deno docs site locally with `deno task serve`, and how to make redirects work via build/pro."
+  },
+  {
+    "path": "ai/index.md",
+    "title": "AI entrypoint",
+    "summary": "Entrypoint for LLMs/AI agents reading Deno docs, pointing agents to deno.com/agents.md and Deno skills."
+  },
+  {
+    "path": "api/deno/index.md",
+    "title": "Deno Namespace APIs",
+    "summary": "Overview of Deno global (`Deno`) namespace APIs like file I/O, TCP/HTTP, subprocess execution, and permissions."
+  },
+  {
+    "path": "api/node/index.md",
+    "title": "Node.js Built-in APIs",
+    "summary": "Introduces Deno’s support for Node.js built-in modules/globals via `node:` imports and compatibility goals."
+  },
+  {
+    "path": "api/web/index.md",
+    "title": "Web Platform APIs",
+    "summary": "Explains Deno’s Web Platform API section (fetch, workers, storage, etc.) and notes implementation details/deviations."
+  },
+  {
+    "path": "deploy/acceptable_use_policy.md",
+    "title": "Acceptable use policy",
+    "summary": "Lists acceptable vs not acceptable uses for Deno Deploy Classic resources (CPU time, request counts)."
+  },
+  {
+    "path": "deploy/changelog.md",
+    "title": "Deno Deploy changelog",
+    "summary": "Deno Deploy changelog entry for March 12, 2026: `Deno.cron()` support and changing app deployment region."
+  },
+  {
+    "path": "deploy/classic/api/compression.md",
+    "title": "Compressing response bodies",
+    "summary": "Deploy Classic response compression rules: enables brotli/gzip only when `Accept-Encoding` includes `br` or `gzip`."
+  },
+  {
+    "path": "deploy/classic/api/dynamic-import.md",
+    "title": "Dynamic import",
+    "summary": "Deploy Classic dynamic import limitations: specifiers must be statically determined string literals."
+  },
+  {
+    "path": "deploy/classic/api/index.md",
+    "title": "API Reference",
+    "summary": "Deploy Classic runtime API reference overview, highlighting that it’s similar to `/runtime/manual/runtime` but serverless-specific."
+  },
+  {
+    "path": "deploy/classic/api/runtime-broadcast-channel.md",
+    "title": "BroadcastChannel",
+    "summary": "Explains how Deploy Classic uses `BroadcastChannel` to exchange messages between tabs of the same origin."
+  },
+  {
+    "path": "deploy/classic/api/runtime-fetch.md",
+    "title": "HTTP requests (fetch)",
+    "summary": "Deploy Classic Fetch API guide for outbound HTTP requests: `fetch()`, `Request`, and `Response` interfaces."
+  },
+  {
+    "path": "deploy/classic/api/runtime-fs.md",
+    "title": "File system APIs",
+    "summary": "Deploy Classic file system APIs: limited access to static files from deployments (e.g., GitHub integration content)."
+  },
+  {
+    "path": "deploy/classic/api/runtime-headers.md",
+    "title": "HTTP Headers",
+    "summary": "Deploy Classic `Headers` interface docs: constructor for `Header` plus methods and example sections."
+  },
+  {
+    "path": "deploy/classic/api/runtime-node.md",
+    "title": "Node.js built-in APIs",
+    "summary": "Shows how Deno Deploy Classic imports Node.js built-in modules via node: specifiers (e.g., node:http)."
+  },
+  {
+    "path": "deploy/classic/api/runtime-request.md",
+    "title": "HTTP Request",
+    "summary": "Documents the Fetch API Request constructor, representing a fetch() request in Deno Deploy Classic."
+  },
+  {
+    "path": "deploy/classic/api/runtime-response.md",
+    "title": "HTTP Response",
+    "summary": "Documents the Fetch API Response constructor, representing a fetch() response resource in Deno Deploy Classic."
+  },
+  {
+    "path": "deploy/classic/api/runtime-sockets.md",
+    "title": "TCP sockets and TLS",
+    "summary": "Explains outbound TCP/TLS support and the Deno.connect API for connecting to external services from Deploy Classic."
+  },
+  {
+    "path": "deploy/classic/ci_github.md",
+    "title": "CI and GitHub Actions",
+    "summary": "Describes GitHub integration deployment behavior: production branch deploys prod; other branches deploy previews; supports auto/other modes."
+  },
+  {
+    "path": "deploy/classic/cron.md",
+    "title": "Scheduling cron tasks",
+    "summary": "Shows how to schedule JavaScript/TypeScript with Deno.cron using cron syntax (example logs every minute)."
+  },
+  {
+    "path": "deploy/classic/custom-domains.md",
+    "title": "Custom domains",
+    "summary": "Instructions to add a custom domain in Deno Deploy Classic dashboard via Project Settings → Domains."
+  },
+  {
+    "path": "deploy/classic/deployctl.md",
+    "title": "Using deployctl on the command line",
+    "summary": "Introduces deployctl CLI to manage Deno Deploy Classic projects/deployments and install it using the Deno install script."
+  },
+  {
+    "path": "deploy/classic/deployments.md",
+    "title": "Deployments",
+    "summary": "Defines Deployments as immutable snapshots of code plus environment variables, created via deployctl or GitHub integration."
+  },
+  {
+    "path": "deploy/classic/dynamodb.md",
+    "title": "Connect to DynamoDB",
+    "summary": "Guides connecting to Amazon DynamoDB from Deploy Classic, starting with generating AWS IAM credentials."
+  },
+  {
+    "path": "deploy/classic/edge_cache.md",
+    "title": "Edge Cache",
+    "summary": "Documents support for the Web Cache API on Deploy Classic using caches.open, cache.match, and Deno.serve."
+  },
+  {
+    "path": "deploy/classic/environment-variables.md",
+    "title": "Environment variables",
+    "summary": "Explains deployment environment variables via Deno.env and how to define them at project level or deployment creation time."
+  },
+  {
+    "path": "deploy/classic/firebase.md",
+    "title": "Connect to Firebase",
+    "summary": "Tutorial to connect an app on Deno Deploy Classic to Firebase, starting with getting Firebase credentials."
+  },
+  {
+    "path": "deploy/classic/how-to-deploy.md",
+    "title": "Deploy with GitHub integration",
+    "summary": "Shows deploying via Deno Deploy Classic GitHub integration and references ci_github plus deployctl for CLI deploys."
+  },
+  {
+    "path": "deploy/classic/index.md",
+    "title": "Deploy Classic",
+    "summary": "Landing page for legacy Deno Deploy Classic, noting it’s no longer onboarding and requires migrating before shutdown."
+  },
+  {
+    "path": "deploy/classic/kv_on_deploy.md",
+    "title": "KV on Deno Deploy",
+    "summary": "Explains Deno KV on Deno Deploy Classic, default strong consistency, and how it’s integrated as a serverless KV store."
+  },
+  {
+    "path": "deploy/classic/logs.md",
+    "title": "Application logging",
+    "summary": "Shows how to view and stream Deno Deploy Classic application logs via the Logs panel or deployctl logs, plus retention."
+  },
+  {
+    "path": "deploy/classic/middleware.md",
+    "title": "Reverse proxy middleware",
+    "summary": "Quickstart for deploying reverse-proxy middleware on Deno Deploy Classic using a playground project and example middleware code."
+  },
+  {
+    "path": "deploy/classic/neon-postgres.md",
+    "title": "Connect to Neon Postgres",
+    "summary": "Tutorial to connect a Deno Deploy Classic application to a Neon Postgres database, including creating a Neon instance."
+  },
+  {
+    "path": "deploy/classic/organizations.md",
+    "title": "Organizations",
+    "summary": "Describes Deno Deploy Classic organizations, member access scope, and steps to create an organization."
+  },
+  {
+    "path": "deploy/classic/playgrounds.md",
+    "title": "Playgrounds",
+    "summary": "Documents Deno Deploy Classic Playgrounds, including in-browser run output and support for env vars, domains, and logs."
+  },
+  {
+    "path": "deploy/classic/postgres.md",
+    "title": "Connect to Postgres",
+    "summary": "Tutorial for connecting to unencrypted Postgres from a Deno Deploy Classic app, with guidance for using encrypted CA certs elsewhere."
+  },
+  {
+    "path": "deploy/classic/prisma-postgres.md",
+    "title": "Connect to Prisma Postgres",
+    "summary": "Guide for connecting to Prisma Postgres on Deno Deploy Classic, including initializing a Prisma project via prisma CLI."
+  },
+  {
+    "path": "deploy/classic/queues.md",
+    "title": "Using Queues",
+    "summary": "Overview of Deno Deploy Classic queues using the Deno.Kv namespace enqueue API for at-least-once async processing."
+  },
+  {
+    "path": "deploy/classic/regions.md",
+    "title": "Regions",
+    "summary": "Lists current Deno Deploy Classic regions and region IDs, noting requests are served from the closest region."
+  },
+  {
+    "path": "deploy/classic/running-scripts-locally.md",
+    "title": "Local development",
+    "summary": "Covers local development with the deno CLI, including running a URL example and using --watch for file changes."
+  },
+  {
+    "path": "deploy/fulfillment_policy.md",
+    "title": "Fulfillment Policy",
+    "summary": "Defines Deno Deploy fulfillment refund policy, including 14-day refund requests and exclusions for violations or user error."
+  },
+  {
+    "path": "deploy/getting_started.md",
+    "title": "Getting started",
+    "summary": "Getting started guide for Deno Deploy, including creating an organization on console and noting Classic migration differences."
+  },
+  {
+    "path": "deploy/index.md",
+    "title": "About Deno Deploy",
+    "summary": "Landing page describing Deno Deploy features, what it is, and how it compares with Deploy Classic."
+  },
+  {
+    "path": "deploy/kv/backup.md",
+    "title": "Backups",
+    "summary": "Explains continuous KV backups for hosted Deno KV to S3-compatible storage, enabling point-in-time recovery and live replication."
+  },
+  {
+    "path": "deploy/kv/data_modeling_typescript.md",
+    "title": "Data Modeling in TypeScript",
+    "summary": "Shows strategies to persist and retrieve strongly typed TypeScript interfaces/classes with Deno KV."
+  },
+  {
+    "path": "deploy/kv/index.md",
+    "title": "Deno KV Quick Start",
+    "summary": "Introduces Deno KV in the Deno.Kv namespace and the --unstable-kv flag for using it."
+  },
+  {
+    "path": "deploy/kv/key_expiration.md",
+    "title": "Key Expiration (TTL for keys)",
+    "summary": "Documents Deno KV key expiration (TTL) via kv.set options with expireIn in milliseconds."
+  },
+  {
+    "path": "deploy/kv/key_space.md",
+    "title": "Key Space",
+    "summary": "Explains Deno KV key space: flat key+value+versionstamp pairs and keys as sequences of typed key parts."
+  },
+  {
+    "path": "deploy/kv/node.md",
+    "title": "Using KV in Node.js",
+    "summary": "Covers using Deno KV from Node.js, including sunsetting Deploy Classic and accessing KV on new Deno Deploy."
+  },
+  {
+    "path": "deploy/kv/operations.md",
+    "title": "Operations",
+    "summary": "Lists Deno KV operations, including get and strong vs eventual consistency for read operations."
+  },
+  {
+    "path": "deploy/kv/secondary_indexes.md",
+    "title": "Secondary Indexes",
+    "summary": "Describes secondary indexes in Deno KV and best practice to store pointers to primary keys for lookups."
+  },
+  {
+    "path": "deploy/kv/transactions.md",
+    "title": "Transactions",
+    "summary": "Explains Deno KV optimistic concurrency transactions using versionstamps and atomic mutation actions."
+  },
+  {
+    "path": "deploy/migration_guide.md",
+    "title": "Migrating from Deploy Classic to Deno Deploy",
+    "summary": "Provides the July 20, 2026 migration guide from Deploy Classic (dash.deno.com) to new Deno Deploy."
+  },
+  {
+    "path": "deploy/pricing_and_limits.md",
+    "title": "Pricing and limitations",
+    "summary": "Details Deno Deploy limitations, beta uptime expectations, and links to pricing and acceptable use policy."
+  },
+  {
+    "path": "deploy/privacy_policy.md",
+    "title": "Privacy Policy",
+    "summary": "Publishes Deno's Privacy Policy dated 09 September 2024, including how personal data is collected and used."
+  },
+  {
+    "path": "deploy/reference/accounts.md",
+    "title": "Accounts",
+    "summary": "Explains GitHub/Google account syncing in Deno Deploy, including email/name updates after sign-in."
+  },
+  {
+    "path": "deploy/reference/apps.md",
+    "title": "Applications",
+    "summary": "Shows how to create and manage Deno Deploy Applications identified by a unique slug within an organization."
+  },
+  {
+    "path": "deploy/reference/builds.md",
+    "title": "Builds",
+    "summary": "Describes Deno Deploy build triggers: GitHub push, deno deploy CLI, and UI deploy default branch."
+  },
+  {
+    "path": "deploy/reference/button.md",
+    "title": "Deploy Button",
+    "summary": "Documents the Deno Deploy Deploy Button for cloning a Git repo and starting app creation with prefilled settings."
+  },
+  {
+    "path": "deploy/reference/caching.md",
+    "title": "CDN and caching",
+    "summary": "Explains Deno Deploy edge HTTP caching behavior and how cache control and invalidation affect cached responses."
+  },
+  {
+    "path": "deploy/reference/cloud_connections.md",
+    "title": "Cloud Connections",
+    "summary": "Describes connecting Deno Deploy to AWS/GCP via OIDC using Deno-issued short-lived JWTs for identity federation."
+  },
+  {
+    "path": "deploy/reference/cron.md",
+    "title": "Cron",
+    "summary": "Covers scheduling cron jobs with Deno.cron() in Deno Deploy, including platform-managed discovery, retries, and dashboards/logs."
+  },
+  {
+    "path": "deploy/reference/databases.md",
+    "title": "Databases",
+    "summary": "Documents Deno Deploy database support for PostgreSQL and Deno KV with per-environment isolated logical databases and env vars."
+  },
+  {
+    "path": "deploy/reference/deno_kv.md",
+    "title": "Deno KV",
+    "summary": "Shows how Deno KV uses one database per timeline, letting apps control which KV database each environment uses."
+  },
+  {
+    "path": "deploy/reference/domains.md",
+    "title": "Domains",
+    "summary": "Details organization default and app production domains, plus steps/requirements for adding custom domains and DNS records."
+  },
+  {
+    "path": "deploy/reference/env_vars_and_contexts.md",
+    "title": "Environment Variables and Contexts",
+    "summary": "Explains Deno Deploy environment variable types (plain text vs secrets) and how they’re scoped by application and context."
+  },
+  {
+    "path": "deploy/reference/frameworks.md",
+    "title": "Frameworks",
+    "summary": "Lists natively supported JS/TS frameworks that Deno Deploy auto-detects and optimizes build/runtime for (e.g., Next.js)."
+  },
+  {
+    "path": "deploy/reference/observability.md",
+    "title": "Observability",
+    "summary": "Summarizes Deno Deploy observability via OpenTelemetry: logs, traces, metrics, and how they’re collected."
+  },
+  {
+    "path": "deploy/reference/oidc.md",
+    "title": "OIDC",
+    "summary": "Explains Deno Deploy acting as an OIDC provider issuing app-signed short-lived JWT tokens for third-party auth."
+  },
+  {
+    "path": "deploy/reference/organizations.md",
+    "title": "Organizations",
+    "summary": "Explains how organizations work in Deno Deploy, including members/invitations, permissions, and the slug powering default domains."
+  },
+  {
+    "path": "deploy/reference/playgrounds.md",
+    "title": "Playgrounds",
+    "summary": "Describes creating and editing Playground apps in the dashboard without a Git repo, including template-based initialization."
+  },
+  {
+    "path": "deploy/reference/runtime.md",
+    "title": "Runtime",
+    "summary": "Details Deno Deploy runtime environment: standard Deno with --allow-all, no custom flags, and secure Linux isolation."
+  },
+  {
+    "path": "deploy/reference/timelines.md",
+    "title": "Timelines",
+    "summary": "Defines timelines and revisions in Deno Deploy, including the active revision serving traffic and context-based env vars."
+  },
+  {
+    "path": "deploy/reference/tunnel.md",
+    "title": "Tunnel",
+    "summary": "Explains Deno Deploy Tunnel for securely exposing a local dev server and syncing local context env vars and telemetry."
+  },
+  {
+    "path": "deploy/security.md",
+    "title": "Security and responsible disclosure",
+    "summary": "Explains how to report and coordinate Deno Deploy security vulnerabilities for responsible disclosure."
+  },
+  {
+    "path": "deploy/support/index.md",
+    "title": "Support and Feedback",
+    "summary": "Provides support contact options for Deno Deploy, including Discord #deploy and support@deno.com with ticket workflow."
+  },
+  {
+    "path": "deploy/terms_and_conditions.md",
+    "title": "Terms and Conditions",
+    "summary": "Defines legal terms between you and Deno Land Inc. for using Deno’s site and Deno Deploy platform offerings."
+  },
+  {
+    "path": "deploy/usage.md",
+    "title": "Deno Deploy Usage Guidelines",
+    "summary": "Covers Deno Deploy usage guidelines, including free-tier constraints and how pricing/traffic spike handling works."
+  },
+  {
+    "path": "examples/sandbox/access_output.md",
+    "title": "Streaming access string and binary output",
+    "summary": "Shows using @deno/sandbox to pipe command stdout as both string and binary (stdout(), stdoutText) output."
+  },
+  {
+    "path": "examples/sandbox/command_cancellation.md",
+    "title": "Command cancellation",
+    "summary": "Demonstrates canceling a long-running sandbox command using KillController and the Sandbox.sh signal."
+  },
+  {
+    "path": "examples/sandbox/environment_variables.md",
+    "title": "Set and get environment variables",
+    "summary": "Explains setting and using sandbox environment variables via sandbox.env.set() and reading them in shell commands."
+  },
+  {
+    "path": "examples/sandbox/error_handling.md",
+    "title": "Error handling",
+    "summary": "Shows sandbox command error handling: try/catch for non-zero exits and .noThrow() for manual status checks."
+  },
+  {
+    "path": "examples/sandbox/javascript_repl.md",
+    "title": "Interactive JavaScript REPL",
+    "summary": "Illustrates starting an interactive JS REPL in a sandbox with sandbox.deno.repl() and repl.eval()."
+  },
+  {
+    "path": "examples/sandbox/memory.md",
+    "title": "Configure sandbox memory",
+    "summary": "Describes configuring sandbox memory via Sandbox.create({ memory: \u003cMB\u003e }) and checking memory info through sandbox APIs."
+  },
+  {
+    "path": "examples/sandbox/spawn_subprocess.md",
+    "title": "Spawn a subprocess and get buffered output",
+    "summary": "Shows spawning subprocesses in a sandbox with buffered stdout (sandbox.sh`pwd`) and recommends streaming for large output."
+  },
+  {
+    "path": "examples/sandbox/ssh_access.md",
+    "title": "Provide SSH access to a sandbox",
+    "summary": "Explains enabling SSH access using Sandbox.create({ ssh: true }) and obtaining credentials via sandbox.exposeSsh()."
+  },
+  {
+    "path": "examples/sandbox/stream_output.md",
+    "title": "Stream output to a local file",
+    "summary": "Demonstrates streaming sandbox output to a local file by piping Node fs streams to Web WritableStream."
+  },
+  {
+    "path": "examples/sandbox/template_literals.md",
+    "title": "Template literal commands with variable interpolation",
+    "summary": "Shows safe shell command construction with sandbox.sh template literals, including variable escaping and array argument expansion."
+  },
+  {
+    "path": "examples/sandbox/timeout_control.md",
+    "title": "Control sandbox timeout",
+    "summary": "Documents the Sandbox.create({ timeout }) option with duration suffixes (s, m) and default 'session' behavior."
+  },
+  {
+    "path": "examples/sandbox/upload_files.md",
+    "title": "Upload files and directories",
+    "summary": "Shows using sandbox.fs.upload(localPath, sandboxPath) to copy files or directory trees into a sandbox."
+  },
+  {
+    "path": "examples/sandbox/vscode_instance.md",
+    "title": "Provide a VSCode instance in a sandbox",
+    "summary": "Describes using sandbox.exposeVscode() to run a disposable VS Code instance in an isolated sandbox and expose its URL."
+  },
+  {
+    "path": "examples/sandbox/web_framework.md",
+    "title": "Serve a web framework",
+    "summary": "Demonstrates creating an Express app in a sandbox and exposing it publicly via sandbox.exposeHttp() on port 3000."
+  },
+  {
+    "path": "examples/tutorials/add_remove_dependencies.md",
+    "title": "Add and remove dependencies",
+    "summary": "Covers deno add/deno remove behavior for npm vs jsr: packages, including version pinning and how it edits import maps/deno.json."
+  },
+  {
+    "path": "examples/tutorials/apollo.md",
+    "title": "How to use Apollo with Deno",
+    "summary": "Intro tutorial for using Apollo Server with Deno, including setting up the Apollo Server, schema, resolvers, and GraphQL API."
+  },
+  {
+    "path": "examples/tutorials/astro.md",
+    "title": "Build Astro with Deno",
+    "summary": "Tutorial for building an Astro app with Deno, focusing on islands/SSR and deployment using Deno’s Node.js compatibility."
+  },
+  {
+    "path": "examples/tutorials/aws_ecs_fargate.md",
+    "title": "Deploy Deno to AWS ECS Fargate",
+    "summary": "Walks through containerizing a Deno app, pushing to Amazon ECR, and running it on AWS ECS Fargate behind a load balancer."
+  },
+  {
+    "path": "examples/tutorials/aws_lambda.md",
+    "title": "How to Deploy Deno to AWS Lambda",
+    "summary": "Step-by-step guide to deploying a Deno app to AWS Lambda using Docker, ECR, and Lambda function configuration."
+  },
+  {
+    "path": "examples/tutorials/aws_lightsail.md",
+    "title": "Deploy Deno to Amazon Lightsail",
+    "summary": "Explains deploying a Deno app to Amazon Lightsail using Docker, Docker Hub, and GitHub Actions for continuous deployment."
+  },
+  {
+    "path": "examples/tutorials/basic_opentelemetry.md",
+    "title": "Getting Started with OpenTelemetry in Deno",
+    "summary": "Shows basic OpenTelemetry instrumentation in Deno by building a simple HTTP server with metrics and traces viewing."
+  },
+  {
+    "path": "examples/tutorials/bdd.md",
+    "title": "Behavior-Driven Development (BDD)",
+    "summary": "Implements Behavior-Driven Development using Deno Standard Library’s BDD testing module with readable example-style tests."
+  },
+  {
+    "path": "examples/tutorials/chat_app.md",
+    "title": "Chat application with WebSockets",
+    "summary": "Tutorial for building a real-time chat app with Deno WebSockets and Oak, handling multiple clients and a simple HTML UI."
+  },
+  {
+    "path": "examples/tutorials/cjs_to_esm.md",
+    "title": "Updating from CommonJS to ESM",
+    "summary": "Migration guide from Node.js CommonJS to ESM in Deno, covering import/export syntax and module resolution differences."
+  },
+  {
+    "path": "examples/tutorials/cloudflare_workers.md",
+    "title": "Deploying Deno to Cloudflare Workers",
+    "summary": "Tutorial for deploying a Deno function to Cloudflare Workers, including denoflare configuration, local testing, and edge deployment."
+  },
+  {
+    "path": "examples/tutorials/cloudflare_workers_wrangler.md",
+    "title": "Deploying Deno to Cloudflare Workers with Wrangler",
+    "summary": "Shows deploying a Deno Cloudflare Worker using Wrangler from Deno, contrasting Wrangler with denoflare."
+  },
+  {
+    "path": "examples/tutorials/connecting_to_databases.md",
+    "title": "Connecting to databases",
+    "summary": "Shows how to connect Deno apps to MySQL, PostgreSQL, MongoDB, SQLite, Firebase, and Supabase via JSR and npm modules."
+  },
+  {
+    "path": "examples/tutorials/debugging_with_console.md",
+    "title": "Better debugging with the console API",
+    "summary": "Covers advanced console debugging in Deno, including console.table, timers, counters, and tracers beyond console.log."
+  },
+  {
+    "path": "examples/tutorials/deno_deploy.md",
+    "title": "Deploy an app with Deno Deploy",
+    "summary": "Step-by-step tutorial to deploy a Vite-based Deno app on Deno Deploy, including prerequisites and setup."
+  },
+  {
+    "path": "examples/tutorials/deno_doc.md",
+    "title": "Generating documentation with deno doc",
+    "summary": "Explains generating docs with deno doc, including JSDoc/HTML output, linting, and output formats (HTML/JSON/terminal)."
+  },
+  {
+    "path": "examples/tutorials/deno_github_actions.md",
+    "title": "Run Deno in GitHub Actions",
+    "summary": "Provides a GitHub Actions CI workflow using denoland/setup-deno to run fmt, lint, and tests with caching and matrix versions."
+  },
+  {
+    "path": "examples/tutorials/dependency_lockfile.md",
+    "title": "Lock dependencies with deno.lock",
+    "summary": "Details deno.lock for reproducible installs: what it records, reviewing diffs, using --frozen/deno ci, and regenerating."
+  },
+  {
+    "path": "examples/tutorials/deploy_command.md",
+    "title": "Deploy an app with the deno deploy command",
+    "summary": "Tutorial for using the deno deploy CLI to create and deploy apps to Deno Deploy, starting from account/org prerequisites."
+  },
+  {
+    "path": "examples/tutorials/deploy_otel.md",
+    "title": "Monitor your app with OpenTelemetry and Deno Deploy",
+    "summary": "Guides adding custom OpenTelemetry instrumentation to Deno Deploy apps for richer traces beyond built-in HTTP/database capture."
+  },
+  {
+    "path": "examples/tutorials/digital_ocean.md",
+    "title": "How to deploy Deno to Digital Ocean",
+    "summary": "Step-by-step guide to deploy Deno to Digital Ocean using Docker, a container registry, and GitHub Actions for CD."
+  },
+  {
+    "path": "examples/tutorials/drizzle.md",
+    "title": "Build a Database App with Drizzle ORM and Deno",
+    "summary": "Walks through building a CRUD dinosaur database app using Drizzle ORM with Deno and PostgreSQL, including migrations and schemas."
+  },
+  {
+    "path": "examples/tutorials/express.md",
+    "title": "How to use Express with Deno",
+    "summary": "How-to for building a REST API with Express.js on Deno using the Node.js compatibility layer for server and routes."
+  },
+  {
+    "path": "examples/tutorials/fetch_data.md",
+    "title": "Fetch and stream data",
+    "summary": "Tutorial on using fetch and streams in Deno to make HTTP requests, stream responses, and handle uploads/downloads."
+  },
+  {
+    "path": "examples/tutorials/file_based_routing.md",
+    "title": "File-based routing",
+    "summary": "Shows how to implement file-based routing in Deno with a Next.js-like folder structure, including dynamic nested routes."
+  },
+  {
+    "path": "examples/tutorials/file_server.md",
+    "title": "Write a file server",
+    "summary": "Tutorial for building a static file server in Deno using Deno.serve and the standard file server approach for production."
+  },
+  {
+    "path": "examples/tutorials/file_system_events.md",
+    "title": "File system events",
+    "summary": "Teaches monitoring directory changes with Deno.watchFs, including async event iteration and OS-specific behavior notes."
+  },
+  {
+    "path": "examples/tutorials/fresh.md",
+    "title": "Build a Fresh App",
+    "summary": "Builds a dinosaur catalog using Fresh’s islands SSR, file-based routing, API routes, and TypeScript deployment steps."
+  },
+  {
+    "path": "examples/tutorials/google_cloud_run.md",
+    "title": "How to deploy to Google Cloud Run",
+    "summary": "Deploys a Deno app to Google Cloud Run using Docker, Artifact Registry, and GitHub Actions for continuous deployment."
+  },
+  {
+    "path": "examples/tutorials/grafana.md",
+    "title": "How to export telemetry data to Grafana",
+    "summary": "Shows how to export OpenTelemetry traces/metrics/logs from Deno and visualize them in Grafana using collectors."
+  },
+  {
+    "path": "examples/tutorials/hashbang.md",
+    "title": "Executable scripts",
+    "summary": "Explains making Deno scripts executable via hashbangs, permissions, and cross-platform command-line tooling."
+  },
+  {
+    "path": "examples/tutorials/honeycomb.md",
+    "title": "How to export telemetry data to Honeycomb",
+    "summary": "Configures Deno’s built-in OpenTelemetry export to Honeycomb and visualize telemetry for monitoring."
+  },
+  {
+    "path": "examples/tutorials/hyperdx.md",
+    "title": "How to export telemetry data to HyperDX",
+    "summary": "Guides exporting OpenTelemetry telemetry from Deno to HyperDX to view logs, traces, metrics, and debug distributed apps."
+  },
+  {
+    "path": "examples/tutorials/import_maps.md",
+    "title": "Re-map import paths",
+    "summary": "Uses deno.json import maps (imports) to create @/ aliases and remap specifiers like tsconfig paths."
+  },
+  {
+    "path": "examples/tutorials/initialize_project.md",
+    "title": "Initialize a project",
+    "summary": "Covers project scaffolding with deno init, including recommended directory setup and example run/watch commands."
+  },
+  {
+    "path": "examples/tutorials/kinsta.md",
+    "title": "How to deploy Deno on Kinsta",
+    "summary": "Deploys Deno on Kinsta by configuring package.json (deno-bin), environment variables, and Git-based deployments."
+  },
+  {
+    "path": "examples/tutorials/llm.md",
+    "title": "Build a Real-time LLM Chat App with Deno",
+    "summary": "Builds a real-time LLM roleplay chat app in Deno using OpenAI or Anthropic APIs with interactive AI characters."
+  },
+  {
+    "path": "examples/tutorials/local_unpublished_packages.md",
+    "title": "Use local and unpublished packages",
+    "summary": "Shows using deno.json links for local packages and importing unpublished code via HTTPS URLs (including limitations)."
+  },
+  {
+    "path": "examples/tutorials/migrate_custom_domain.md",
+    "title": "Migrating a custom domain from Deploy Classic to Deno Deploy",
+    "summary": "Migrates a custom domain from Deploy Classic to Deno Deploy by adding the domain in the console and saving settings."
+  },
+  {
+    "path": "examples/tutorials/migrate_node_project.md",
+    "title": "Use Deno in an existing Node.js project",
+    "summary": "Runs an existing Node.js project in Deno by installing npm deps, running npm scripts via deno task, and using node: built-ins."
+  },
+  {
+    "path": "examples/tutorials/module_metadata.md",
+    "title": "Module metadata",
+    "summary": "Documents Deno/JS module metadata like import.meta.main and import.meta.url for entrypoint and URL resolution."
+  },
+  {
+    "path": "examples/tutorials/mongoose.md",
+    "title": "How to use Mongoose with Deno",
+    "summary": "Step-by-step setup for using Mongoose with Deno, including MongoDB connectivity, schemas, models, and CRUD."
+  },
+  {
+    "path": "examples/tutorials/mysql2.md",
+    "title": "How to use MySQL2 with Deno",
+    "summary": "Tutorial for using the MySQL2 Node.js driver from Deno: connect, run queries, and handle transactions."
+  },
+  {
+    "path": "examples/tutorials/next.md",
+    "title": "Build a Next.js App",
+    "summary": "Walkthrough building and running a simple Next.js (React) app with Deno, including API routes and SSR."
+  },
+  {
+    "path": "examples/tutorials/npm_lifecycle_scripts.md",
+    "title": "Run npm lifecycle scripts",
+    "summary": "Explains using deno approve-scripts and deno.json allowScripts to run npm lifecycle scripts safely."
+  },
+  {
+    "path": "examples/tutorials/nuxt.md",
+    "title": "Build a Nuxt app with Deno",
+    "summary": "Step-by-step guide to building a Nuxt (Vue) full-stack app with Deno, including SSR and Tailwind."
+  },
+  {
+    "path": "examples/tutorials/os_signals.md",
+    "title": "Handle OS signals",
+    "summary": "Shows how to capture and manage OS signals in Deno with addSignalListener/removeSignalListener for graceful shutdown."
+  },
+  {
+    "path": "examples/tutorials/otel_span_propagation.md",
+    "title": "Distributed Tracing with Context Propagation in Deno",
+    "summary": "Tutorial on Deno 2.3+ distributed tracing with automatic trace context propagation across service boundaries."
+  },
+  {
+    "path": "examples/tutorials/planetscale.md",
+    "title": "How to use Planetscale with Deno",
+    "summary": "How to use Planetscale serverless MySQL via @planetscale/database: connections and executing queries."
+  },
+  {
+    "path": "examples/tutorials/prisma.md",
+    "title": "How to create a RESTful API with Prisma and Oak",
+    "summary": "Guide to building a REST API with Prisma and Oak in Deno, including schema setup and typed CRUD routes."
+  },
+  {
+    "path": "examples/tutorials/private_registries.md",
+    "title": "Use private npm registries",
+    "summary": "Tutorial configuring private npm registries in Deno using .npmrc scoped registries and auth tokens."
+  },
+  {
+    "path": "examples/tutorials/qwik.md",
+    "title": "Build Qwik with Deno",
+    "summary": "Tutorial to build a Qwik app with Deno, covering resumability, SSR, routing, and zero default client JS."
+  },
+  {
+    "path": "examples/tutorials/react.md",
+    "title": "React app with Vite",
+    "summary": "Complete tutorial for building a React app with Deno and Vite, including routing and full-stack API endpoints."
+  },
+  {
+    "path": "examples/tutorials/redis.md",
+    "title": "How to use Redis with Deno",
+    "summary": "How to build a more complete Redis-backed app with Deno on top of the Redis quick start."
+  },
+  {
+    "path": "examples/tutorials/run_script.md",
+    "title": "Run a script",
+    "summary": "Basic guide to writing and running JavaScript/TypeScript scripts in Deno, explaining runtime concepts and setup."
+  },
+  {
+    "path": "examples/tutorials/simple_api.md",
+    "title": "Simple API server",
+    "summary": "Builds a link shortener using Deno KV plus Web primitives, then deploys it with Deno Deploy."
+  },
+  {
+    "path": "examples/tutorials/snapshot_python.md",
+    "title": "Boot a Python environment with snapshots",
+    "summary": "Uses Deno Sandbox SDK to install Python packages, snapshot the environment, and boot zero-setup sandboxes."
+  },
+  {
+    "path": "examples/tutorials/snapshots.md",
+    "title": "Deno Sandbox Snapshots Tutorial",
+    "summary": "Tutorial for creating Deno sandbox read-only snapshots by baking Node/TypeScript/global CLI once and reusing the environment."
+  },
+  {
+    "path": "examples/tutorials/solidjs.md",
+    "title": "Build a SolidJS app with Deno",
+    "summary": "Build a SolidJS dinosaur catalog with Deno, covering project setup, fine-grained reactive components, routing, and Hono API endpoints."
+  },
+  {
+    "path": "examples/tutorials/subprocess.md",
+    "title": "Creating a subprocess",
+    "summary": "Shows how to spawn subprocesses in Deno using Deno.Command, required --allow-run permission, and stdin/stdout IPC."
+  },
+  {
+    "path": "examples/tutorials/svelte.md",
+    "title": "Build a SvelteKit App",
+    "summary": "SvelteKit app tutorial with Deno using file-based routing, load functions for state, and full-stack TypeScript endpoints."
+  },
+  {
+    "path": "examples/tutorials/sveltekit.md",
+    "title": "Building a SvelteKit app with sv and Deno",
+    "summary": "SvelteKit-with-Deno tutorial using the sv CLI (npx sv create) to scaffold a project and follow loading patterns."
+  },
+  {
+    "path": "examples/tutorials/tanstack.md",
+    "title": "Build an app with Tanstack and Deno",
+    "summary": "TanStack + Deno guide using Query, Table, Router, and Form for type-safe full-stack apps."
+  },
+  {
+    "path": "examples/tutorials/testing.md",
+    "title": "Writing tests",
+    "summary": "Testing tutorial covering test setup/structure, assertions, async testing, mocking, fixtures, and code coverage basics."
+  },
+  {
+    "path": "examples/tutorials/testing_library.md",
+    "title": "Use Testing Library with Deno",
+    "summary": "Demonstrates DOM testing in deno test with @testing-library/dom + happy-dom, including role/text queries and event simulation."
+  },
+  {
+    "path": "examples/tutorials/trpc.md",
+    "title": "Build a Typesafe API with tRPC and Deno",
+    "summary": "Tutorial for building a typesafe tRPC API with Deno, including RPC procedures and server/client integration."
+  },
+  {
+    "path": "examples/tutorials/tunnel.md",
+    "title": "Share your local server with Tunnel",
+    "summary": "Explains how to expose a local Deno server to the internet instantly using the --tunnel flag for webhook testing."
+  },
+  {
+    "path": "examples/tutorials/tunnel_database.md",
+    "title": "Connect a Database to your local dev",
+    "summary": "Shows using Deno Deploy with tunnel to connect a Postgres database to local dev via a tunneled environment."
+  },
+  {
+    "path": "examples/tutorials/tunnel_telemetry.md",
+    "title": "Local Telemetry with tunnel",
+    "summary": "Local telemetry tutorial sending OpenTelemetry spans/logs from a tunneled local server to Deno Deploy monitoring."
+  },
+  {
+    "path": "examples/tutorials/vite.md",
+    "title": "Use Vite with Deno",
+    "summary": "Vite + Deno tutorial: scaffold with npm, run the dev server with HMR, and build for production via Deno-managed npm deps."
+  },
+  {
+    "path": "examples/tutorials/volumes.md",
+    "title": "Deno Sandbox Volumes Tutorial",
+    "summary": "Deno sandbox volumes tutorial using durable regional block storage to persist a /data/cache across runs."
+  },
+  {
+    "path": "examples/tutorials/vue.md",
+    "title": "Build a Vue.js App",
+    "summary": "Vue.js dinosaurs app tutorial with Vite and Deno, including component architecture, routing, state, and full-stack TypeScript."
+  },
+  {
+    "path": "examples/tutorials/web_testing.md",
+    "title": "Testing web apps",
+    "summary": "Explains how to test web UI in Deno using DOM libraries like deno-dom, since Deno can’t access the real DOM directly."
+  },
+  {
+    "path": "examples/tutorials/word_finder.md",
+    "title": "Building a word finder app with Deno",
+    "summary": "Builds a Word Finder app that matches user patterns with `_` and `?` against an English dictionary over HTTP."
+  },
+  {
+    "path": "examples/tutorials/workspaces_monorepo.md",
+    "title": "Configure a monorepo with workspaces",
+    "summary": "Shows how to configure a Deno monorepo workspace with member packages, exports, and shared dependency catalogs."
+  },
+  {
+    "path": "lint/rules/adjacent-overload-signatures.md",
+    "title": "Requires overload signatures to be adjacent",
+    "summary": "Forces TypeScript overload signatures to be declared adjacent to each other for readability and maintenance."
+  },
+  {
+    "path": "lint/rules/ban-ts-comment.md",
+    "title": "Ban ts-comment",
+    "summary": "Disallows `// @ts-*` TypeScript directives unless they include an explicit trailing comment explaining why."
+  },
+  {
+    "path": "lint/rules/ban-types.md",
+    "title": "Ban types",
+    "summary": "Bans primitive wrapper object types like `String`/`Number`, plus `Function` and the misunderstood `Object` type."
+  },
+  {
+    "path": "lint/rules/ban-unknown-rule-code.md",
+    "title": "Ban unknown rule code",
+    "summary": "Warns when `deno-lint-ignore` uses unknown rule names that Deno lints don’t provide."
+  },
+  {
+    "path": "lint/rules/ban-untagged-ignore.md",
+    "title": "Ban untagged ignore",
+    "summary": "Requires `deno-lint-ignore` to specify one or more rule names instead of ignoring all lint rules."
+  },
+  {
+    "path": "lint/rules/ban-untagged-todo.md",
+    "title": "Ban untagged todo",
+    "summary": "Requires TODO comments to include a user tag `@user` or issue reference `#issue`, not just free text."
+  },
+  {
+    "path": "lint/rules/ban-unused-ignore.md",
+    "title": "Ban unused ignore",
+    "summary": "Flags unused `deno-lint-ignore` directives that no longer suppress any lint errors (e.g., after refactors)."
+  },
+  {
+    "path": "lint/rules/camelcase.md",
+    "title": "Camelcase",
+    "summary": "Enforces camelCase for variable names and object property identifiers, with rules for leading/trailing `_` and quoting snake_case."
+  },
+  {
+    "path": "lint/rules/constructor-super.md",
+    "title": "Constructor super",
+    "summary": "Ensures derived class constructors call `super()` and that classes extending non-constructors don’t declare constructors."
+  },
+  {
+    "path": "lint/rules/default-param-last.md",
+    "title": "Default param last",
+    "summary": "Requires default parameters to appear last in a function signature to avoid confusing argument mapping."
+  },
+  {
+    "path": "lint/rules/eqeqeq.md",
+    "title": "Eqeqeq",
+    "summary": "Enforces `===`/`!==` over `==`/`!=` to prevent type-coercion equality surprises."
+  },
+  {
+    "path": "lint/rules/explicit-function-return-type.md",
+    "title": "Explicit function return type",
+    "summary": "Requires explicit return types on all functions, flagging functions without typed signatures."
+  },
+  {
+    "path": "lint/rules/explicit-module-boundary-types.md",
+    "title": "Explicit module boundary types",
+    "summary": "Requires exported functions and constants to have fully typed parameters and return types for module boundaries."
+  },
+  {
+    "path": "lint/rules/for-direction.md",
+    "title": "For loop direction",
+    "summary": "Enforces `for` loop control variables to increment in the correct direction to avoid infinite loops."
+  },
+  {
+    "path": "lint/rules/fresh-handler-export.md",
+    "title": "Fresh handler export",
+    "summary": "Fresh route middleware must be exported as named `handler`, not `handlers`."
+  },
+  {
+    "path": "lint/rules/fresh-server-event-handlers.md",
+    "title": "Fresh server event handlers",
+    "summary": "Disallows event handler props in fresh server components under the `routes/` folder."
+  },
+  {
+    "path": "lint/rules/getter-return.md",
+    "title": "Getter return",
+    "summary": "Requires all JavaScript/TypeScript property getter functions to return a value."
+  },
+  {
+    "path": "lint/rules/guard-for-in.md",
+    "title": "Guard for-in",
+    "summary": "Requires `for-in` loops to include an `if` using `Object.hasOwn` to filter prototype properties."
+  },
+  {
+    "path": "lint/rules/jsx-boolean-value.md",
+    "title": "JSX boolean value",
+    "summary": "Enforces that JSX boolean props omit `={true}` via shorthand, but keep `={false}` explicitly."
+  },
+  {
+    "path": "lint/rules/jsx-button-has-type.md",
+    "title": "JSX button has type",
+    "summary": "Requires `\u003cbutton\u003e` elements to have a `type` attribute to avoid default submit behavior in forms."
+  },
+  {
+    "path": "lint/rules/jsx-curly-braces.md",
+    "title": "JSX curly braces",
+    "summary": "Enforces consistent curly braces around JSX expressions, e.g. `foo={\u003cdiv /\u003e}` not `foo=\u003cdiv /\u003e`."
+  },
+  {
+    "path": "lint/rules/jsx-key.md",
+    "title": "JSX key",
+    "summary": "Requires a `key` attribute on JSX elements when rendering arrays/iterables to aid reconciliation."
+  },
+  {
+    "path": "lint/rules/jsx-no-children-prop.md",
+    "title": "JSX no children prop",
+    "summary": "Disallows passing React/Fresh `children` via the `children` prop; must use JSX children instead."
+  },
+  {
+    "path": "lint/rules/jsx-no-comment-text-nodes.md",
+    "title": "JSX no comment text nodes",
+    "summary": "Prevents plain-text JSX output by disallowing JS comments directly inside JSX text nodes."
+  },
+  {
+    "path": "lint/rules/jsx-no-duplicate-props.md",
+    "title": "JSX no duplicate props",
+    "summary": "Disallows duplicated JSX props where later props overwrite earlier ones."
+  },
+  {
+    "path": "lint/rules/jsx-no-unescaped-entities.md",
+    "title": "JSX no unescaped entities",
+    "summary": "Disallows unescaped `\u003e` and `}` in JSX, requiring them as strings (e.g. `\u0026gt;` or `{'\u003e'}`)."
+  },
+  {
+    "path": "lint/rules/jsx-no-useless-fragment.md",
+    "title": "JSX no useless fragment",
+    "summary": "Disallows unnecessary JSX fragments except at top-level block with multiple children."
+  },
+  {
+    "path": "lint/rules/jsx-props-no-spread-multi.md",
+    "title": "Disallow multiple identical JSX prop spreads",
+    "summary": "Flags JSX props where the same spread expression is used multiple times on an element."
+  },
+  {
+    "path": "lint/rules/jsx-void-dom-elements-no-children.md",
+    "title": "No children for JSX void DOM elements",
+    "summary": "Disallows children inside HTML void elements like \u003cbr\u003e and \u003cimg\u003e in JSX/TSX."
+  },
+  {
+    "path": "lint/rules/no-array-constructor.md",
+    "title": "No Array constructor",
+    "summary": "Disallows new Array() usage except for new Array(fixedLength); prefers array literals like [] or [1,2,3]."
+  },
+  {
+    "path": "lint/rules/no-async-promise-executor.md",
+    "title": "No async Promise executor functions",
+    "summary": "Requires promise executors passed to new Promise(...) not to be async."
+  },
+  {
+    "path": "lint/rules/no-await-in-loop.md",
+    "title": "No await in loop",
+    "summary": "Disallows await inside for-loop bodies to prevent sequential blocking; suggests awaiting collected promises instead."
+  },
+  {
+    "path": "lint/rules/no-await-in-sync-fn.md",
+    "title": "No await in non-async function",
+    "summary": "Disallows using await inside non-async functions; requires marking the function async."
+  },
+  {
+    "path": "lint/rules/no-boolean-literal-for-arguments.md",
+    "title": "No boolean literals for arguments",
+    "summary": "Requires replacing boolean literal arguments (e.g., true/false) with named constants for clarity."
+  },
+  {
+    "path": "lint/rules/no-case-declarations.md",
+    "title": "No unscoped declarations in switch cases",
+    "summary": "Requires wrapping lexical declarations in switch case/default blocks with braces to scope them correctly."
+  },
+  {
+    "path": "lint/rules/no-class-assign.md",
+    "title": "No class assignment",
+    "summary": "Disallows reassigning the variable created by a class declaration (e.g., ClassName = 0)."
+  },
+  {
+    "path": "lint/rules/no-compare-neg-zero.md",
+    "title": "No comparison against negative zero",
+    "summary": "Disallows comparisons against -0; use Object.is(x, -0) instead."
+  },
+  {
+    "path": "lint/rules/no-cond-assign.md",
+    "title": "No assignment in conditional statements",
+    "summary": "Disallows assignment operator (=) inside conditionals unless wrapped in parentheses to indicate intent."
+  },
+  {
+    "path": "lint/rules/no-console.md",
+    "title": "No console usage",
+    "summary": "Disallows use of the console global (console.log/error/debug), recommending deno-lint-ignore for explicit enablement."
+  },
+  {
+    "path": "lint/rules/no-const-assign.md",
+    "title": "No reassignment of const variables",
+    "summary": "Disallows modifying variables declared with const (e.g., a = 1, a++)."
+  },
+  {
+    "path": "lint/rules/no-constant-condition.md",
+    "title": "No constant conditions",
+    "summary": "Disallows constant expressions in conditional tests like if(true) and if(2), including infinite-loop do/while."
+  },
+  {
+    "path": "lint/rules/no-control-regex.md",
+    "title": "No control characters in regex",
+    "summary": "Disallows ASCII control characters (0-31) inside regular expression patterns."
+  },
+  {
+    "path": "lint/rules/no-debugger.md",
+    "title": "Disallow `debugger` statements",
+    "summary": "Flags use of the JavaScript `debugger` statement so execution won’t pause in production."
+  },
+  {
+    "path": "lint/rules/no-delete-var.md",
+    "title": "Disallow deleting variables",
+    "summary": "Prevents deleting variables declared with `var`, `let`, or `const`; object properties via `delete obj.prop` are allowed."
+  },
+  {
+    "path": "lint/rules/no-deprecated-deno-api.md",
+    "title": "Warn on deprecated Deno APIs",
+    "summary": "Warns when using deprecated Deno APIs in the `Deno.*` namespace, listing specific items to migrate off."
+  },
+  {
+    "path": "lint/rules/no-dupe-args.md",
+    "title": "Disallow duplicate function arguments",
+    "summary": "Disallows duplicate parameter names in a function signature to avoid shadowing caused by repeated args."
+  },
+  {
+    "path": "lint/rules/no-dupe-class-members.md",
+    "title": "Disallow duplicate class member names",
+    "summary": "Rejects duplicate method names in a class body to prevent overwritten class member declarations."
+  },
+  {
+    "path": "lint/rules/no-dupe-else-if.md",
+    "title": "Disallow duplicate `else if` conditions",
+    "summary": "Flags repeating the same condition in an `if`/`else if` chain where the later branch will never run."
+  },
+  {
+    "path": "lint/rules/no-dupe-keys.md",
+    "title": "Disallow duplicate object literal keys",
+    "summary": "Disallows duplicate keys in object literals where later assignments override earlier ones."
+  },
+  {
+    "path": "lint/rules/no-duplicate-case.md",
+    "title": "Disallow duplicate `switch` cases",
+    "summary": "Disallows duplicate `case` clauses in a `switch` statement so earlier cases aren’t unreachable."
+  },
+  {
+    "path": "lint/rules/no-empty-character-class.md",
+    "title": "Disallow empty regex character classes",
+    "summary": "Prevents regex character classes like `[]` in patterns because they match nothing and are likely a mistake."
+  },
+  {
+    "path": "lint/rules/no-empty-enum.md",
+    "title": "Disallow empty enums",
+    "summary": "Flags enum declarations with no members (e.g., `enum Foo {}`) as unnecessary or mistaken implementations."
+  },
+  {
+    "path": "lint/rules/no-empty-interface.md",
+    "title": "Disallow empty interfaces",
+    "summary": "Rejects empty TypeScript interfaces (e.g., `interface Foo {}`) except for certain extension/identity use cases."
+  },
+  {
+    "path": "lint/rules/no-empty-pattern.md",
+    "title": "Disallow empty destructuring patterns",
+    "summary": "Disallows empty destructuring patterns like `{}` or `[]` that have no effect."
+  },
+  {
+    "path": "lint/rules/no-empty.md",
+    "title": "Disallow empty blocks",
+    "summary": "Flags empty block statements such as empty `if`, loops, `switch`, or `try/catch/finally` bodies."
+  },
+  {
+    "path": "lint/rules/no-eval.md",
+    "title": "Disallow `eval`",
+    "summary": "Disallows use of the `eval` function due to security vulnerabilities and performance concerns."
+  },
+  {
+    "path": "lint/rules/no-ex-assign.md",
+    "title": "Disallow reassigning exception parameters",
+    "summary": "Prevents reassignment of caught exception parameters (e.g., `catch (e) { e = ... }`)."
+  },
+  {
+    "path": "lint/rules/no-explicit-any.md",
+    "title": "Disallow `any` type",
+    "summary": "Flags use of TypeScript’s `any` type; suggests `unknown` or specific types instead."
+  },
+  {
+    "path": "lint/rules/no-external-import.md",
+    "title": "Disallow external URL imports",
+    "summary": "Warns when modules are imported via URL strings; suggests using `deps.ts` convention or import maps."
+  },
+  {
+    "path": "lint/rules/no-extra-boolean-cast.md",
+    "title": "Disallow unnecessary boolean casts",
+    "summary": "Disallows unnecessary boolean casts like `!!foo` and `Boolean(foo)` in `if/while/for` conditions."
+  },
+  {
+    "path": "lint/rules/no-extra-non-null-assertion.md",
+    "title": "Disallow unnecessary non-null assertions",
+    "summary": "Flags redundant non-null assertions such as `foo!!` and `bar!?.str`; requires single `!` or `?.` usage."
+  },
+  {
+    "path": "lint/rules/no-fallthrough.md",
+    "title": "Disallow implicit fallthrough",
+    "summary": "Enforces `break` or an explicit `fallthrough` comment in `switch` case fallthroughs."
+  },
+  {
+    "path": "lint/rules/no-func-assign.md",
+    "title": "Disallow function reassignment",
+    "summary": "Prevents overwriting an existing function by reassignment (e.g., `foo = bar` or reassigning function identifiers)."
+  },
+  {
+    "path": "lint/rules/no-global-assign.md",
+    "title": "Disallow assignment to native objects",
+    "summary": "Disallows assignment to native globals like `Object`, `undefined`, or `window`."
+  },
+  {
+    "path": "lint/rules/no-implicit-declare-namespace-export.md",
+    "title": "Disallow implicit ambient namespace exports",
+    "summary": "Disallows implicit exports of members in ambient (`declare namespace`) namespaces without explicit named exports."
+  },
+  {
+    "path": "lint/rules/no-import-assertions.md",
+    "title": "Disallow deprecated import assertions",
+    "summary": "Flags deprecated `assert` syntax for import attributes; requires `with { ... }` instead."
+  },
+  {
+    "path": "lint/rules/no-import-assign.md",
+    "title": "Disallow reassignment of import bindings",
+    "summary": "Disallows reassigning imported module bindings (including replacing namespace imports with `{}`) but allows property mutation."
+  },
+  {
+    "path": "lint/rules/no-import-prefix.md",
+    "title": "Enforce import declarations via deno.json/package.json",
+    "summary": "Requires external module specifiers be declared in `deno.json` or `package.json` imports (no direct `https://`/`npm:`/`jsr:`)."
+  },
+  {
+    "path": "lint/rules/no-inferrable-types.md",
+    "title": "Disallow easily inferrable types",
+    "summary": "Flags easily inferrable primitive/null literal types like `const x: number = 10`."
+  },
+  {
+    "path": "lint/rules/no-inner-declarations.md",
+    "title": "Disallow inner declarations",
+    "summary": "Disallows variable and function declarations inside nested blocks, but allows function expressions and named/anonymous functions."
+  },
+  {
+    "path": "lint/rules/no-invalid-regexp.md",
+    "title": "Disallow invalid RegExp constructor patterns",
+    "summary": "Rejects invalid regular expression literals in `RegExp` constructors (e.g., `new RegExp(\")\")`)."
+  },
+  {
+    "path": "lint/rules/no-invalid-triple-slash-reference.md",
+    "title": "Warn on invalid triple-slash references",
+    "summary": "Warns about wrong triple-slash reference directives in Deno; only `types` is allowed in JavaScript files."
+  },
+  {
+    "path": "lint/rules/no-irregular-whitespace.md",
+    "title": "no-irregular-whitespace",
+    "summary": "Disallows non-space/non-tab Unicode whitespace like NBSP, BOM, line tabulation, and form feed in code."
+  },
+  {
+    "path": "lint/rules/no-misused-new.md",
+    "title": "no-misused-new",
+    "summary": "Flags using `constructor` on interfaces or `new` methods on classes, and gives valid/invalid TypeScript examples."
+  },
+  {
+    "path": "lint/rules/no-namespace.md",
+    "title": "no-namespace",
+    "summary": "Disallows `namespace`/`module` keywords except for ambient namespaces with `declare` and inside `.d.ts` files."
+  },
+  {
+    "path": "lint/rules/no-new-symbol.md",
+    "title": "no-new-symbol",
+    "summary": "Disallows `new Symbol(...)` and requires calling `Symbol(...)` as a function except for non-builtin symbols."
+  },
+  {
+    "path": "lint/rules/no-node-globals.md",
+    "title": "no-node-globals",
+    "summary": "Disallows NodeJS global objects like `Buffer`; use `import { Buffer } from \"node:buffer\"` to satisfy the rule."
+  },
+  {
+    "path": "lint/rules/no-non-null-asserted-optional-chain.md",
+    "title": "no-non-null-asserted-optional-chain",
+    "summary": "Disallows `!` non-null assertions after an optional chain (`?.`), e.g. `foo?.bar!`."
+  },
+  {
+    "path": "lint/rules/no-non-null-assertion.md",
+    "title": "no-non-null-assertion",
+    "summary": "Disallows TypeScript `!` non-null assertion postfix operator and suggests using `?.` and `??` instead."
+  },
+  {
+    "path": "lint/rules/no-obj-calls.md",
+    "title": "no-obj-calls",
+    "summary": "Prevents calling built-in globals like `Math()`, `JSON()`, `Reflect()`, and `Atomics()` as functions."
+  },
+  {
+    "path": "lint/rules/no-octal.md",
+    "title": "no-octal",
+    "summary": "Disallows legacy octal numeric literals starting with `0` (e.g. `042`), encourages `0o` prefix instead."
+  },
+  {
+    "path": "lint/rules/no-process-global.md",
+    "title": "no-process-global",
+    "summary": "Disallows using NodeJS `process` global directly; import it via `import process from \"node:process\"`."
+  },
+  {
+    "path": "lint/rules/no-prototype-builtins.md",
+    "title": "no-prototype-builtins",
+    "summary": "Disallows calling `hasOwnProperty`, `isPrototypeOf`, and `propertyIsEnumerable` directly on objects."
+  },
+  {
+    "path": "lint/rules/no-redeclare.md",
+    "title": "no-redeclare",
+    "summary": "Disallows redeclaring variables/functions/parameters with the same name using `var`, `let`, `const`, or duplicates."
+  },
+  {
+    "path": "lint/rules/no-regex-spaces.md",
+    "title": "no-regex-spaces",
+    "summary": "Disallows multiple spaces inside regex literals (e.g. `/foo  bar/`), encourages `{n}` repetition syntax."
+  },
+  {
+    "path": "lint/rules/no-self-assign.md",
+    "title": "no-self-assign",
+    "summary": "Disallows self-assignments like `a = a;` and destructuring self-assigns that make no effect."
+  },
+  {
+    "path": "lint/rules/no-self-compare.md",
+    "title": "no-self-compare",
+    "summary": "Disallows comparisons where both sides are the same expression/value, like `x === x` or `a.b === a.b`."
+  },
+  {
+    "path": "lint/rules/no-setter-return.md",
+    "title": "Disallow returning values from setters",
+    "summary": "Flags returning a value from setters; returning without a value is allowed for early returns."
+  },
+  {
+    "path": "lint/rules/no-shadow-restricted-names.md",
+    "title": "Disallow shadowing restricted names",
+    "summary": "Disallows shadowing restricted global/identifier names: NaN, Infinity, undefined, eval, and arguments."
+  },
+  {
+    "path": "lint/rules/no-sloppy-imports.md",
+    "title": "Enforce explicit module specifier paths",
+    "summary": "Requires explicit file extensions in module specifiers when --unstable-sloppy-imports is enabled."
+  },
+  {
+    "path": "lint/rules/no-slow-types.md",
+    "title": "Enforce explicit or inferrable types",
+    "summary": "Enforces using types that are explicit or can be inferred simply; links to jsr about slow types."
+  },
+  {
+    "path": "lint/rules/no-sparse-arrays.md",
+    "title": "Disallow sparse arrays",
+    "summary": "Disallows sparse arrays with empty slots (e.g., [\"foo\", , \"bar\"]) to avoid undefined/skipped behavior."
+  },
+  {
+    "path": "lint/rules/no-sync-fn-in-async-fn.md",
+    "title": "Disallow sync functions inside async functions",
+    "summary": "Prevents using sync blocking calls like Deno.readTextFileSync inside async functions."
+  },
+  {
+    "path": "lint/rules/no-this-alias.md",
+    "title": "Disallow assigning variables to this",
+    "summary": "Disallows assigning `this` to a variable; recommends arrow functions to preserve `this` correctly."
+  },
+  {
+    "path": "lint/rules/no-this-before-super.md",
+    "title": "Disallow this/super before super()",
+    "summary": "Disallows accessing `this` or `super` before calling super() in derived class constructors."
+  },
+  {
+    "path": "lint/rules/no-throw-literal.md",
+    "title": "Disallow throwing literals as exceptions",
+    "summary": "Disallows throwing non-Error literals like string/number/null/undefined; requires throwing Error objects."
+  },
+  {
+    "path": "lint/rules/no-top-level-await.md",
+    "title": "Disallow top-level await",
+    "summary": "Disallows top-level await expressions because they break CommonJS/UMD distribution via dnt."
+  },
+  {
+    "path": "lint/rules/no-undef.md",
+    "title": "Disallow use of undeclared variables",
+    "summary": "Flags use of undeclared variables, e.g., referencing someFunction or undefined identifiers."
+  },
+  {
+    "path": "lint/rules/no-unreachable.md",
+    "title": "Disallow unreachable code",
+    "summary": "Disallows unreachable code after control flow statements like return/throw/break/continue."
+  },
+  {
+    "path": "lint/rules/no-unsafe-finally.md",
+    "title": "Disallow control flow in finally blocks",
+    "summary": "Disallows return/throw/break/continue inside finally blocks since they override try/catch control flow."
+  },
+  {
+    "path": "lint/rules/no-unsafe-negation.md",
+    "title": "Disallow unsafe negation usage",
+    "summary": "Warns when `!` is used as the left operand of relational operators like in/instanceof."
+  },
+  {
+    "path": "lint/rules/no-unused-labels.md",
+    "title": "Disallow unused labels",
+    "summary": "Disallows labels that are declared but never used; suggests removing or using the label."
+  },
+  {
+    "path": "lint/rules/no-unused-vars.md",
+    "title": "No Unused Vars",
+    "summary": "Flags declared variables that are never read, called/constructed, or exported; suggests prefixing intentional unused vars with _."
+  },
+  {
+    "path": "lint/rules/no-unversioned-import.md",
+    "title": "No Unversioned Import",
+    "summary": "Requires inline import specifiers like npm:chalk@5.3.0 or jsr:@std/path@^1.0.8; disallows unversioned ones."
+  },
+  {
+    "path": "lint/rules/no-useless-rename.md",
+    "title": "No Useless Rename",
+    "summary": "Disallows rename operations where the original and new identifier names are identical (e.g., foo as foo)."
+  },
+  {
+    "path": "lint/rules/no-var.md",
+    "title": "No Var",
+    "summary": "Rejects function-scoped var declarations and recommends block-scoped let/const instead."
+  },
+  {
+    "path": "lint/rules/no-window-prefix.md",
+    "title": "No Window Prefix",
+    "summary": "Disallows using Web APIs via the window prefix (e.g., window.fetch), with specific allowed exceptions like window.alert."
+  },
+  {
+    "path": "lint/rules/no-window.md",
+    "title": "No Window",
+    "summary": "Rejects use of the window global (not available in Deno) and recommends fetch via globalThis/self."
+  },
+  {
+    "path": "lint/rules/no-with.md",
+    "title": "No With",
+    "summary": "Disallows JavaScript with statements due to confusing bugs and compatibility issues."
+  },
+  {
+    "path": "lint/rules/prefer-as-const.md",
+    "title": "Prefer As Const",
+    "summary": "Recommends const assertions (as const) over literal type annotations and other type assertions for primitives."
+  },
+  {
+    "path": "lint/rules/prefer-ascii.md",
+    "title": "Prefer ASCII",
+    "summary": "Enforces that all code characters are ASCII to enable V8 one-byte string optimizations."
+  },
+  {
+    "path": "lint/rules/prefer-const.md",
+    "title": "Prefer Const",
+    "summary": "Recommends using const instead of let when a variable could be non-mutable after initialization."
+  },
+  {
+    "path": "lint/rules/prefer-namespace-keyword.md",
+    "title": "Prefer Namespace Keyword",
+    "summary": "Prefers TypeScript namespace keyword over module for TypeScript-specific module organization."
+  },
+  {
+    "path": "lint/rules/prefer-primordials.md",
+    "title": "Prefer Primordials",
+    "summary": "Suggests replacing direct global intrinsic usage with frozen primordials.* intrinsics to avoid prototype pollution."
+  },
+  {
+    "path": "lint/rules/react-no-danger-with-children.md",
+    "title": "React No Danger With Children",
+    "summary": "Forbids JSX children on elements using dangerouslySetInnerHTML because the children will be ignored."
+  },
+  {
+    "path": "lint/rules/react-no-danger.md",
+    "title": "React No Danger",
+    "summary": "Prevents use of dangerouslySetInnerHTML in JSX, which can cause XSS if misused."
+  },
+  {
+    "path": "lint/rules/react-rules-of-hooks.md",
+    "title": "React Rules of Hooks",
+    "summary": "Enforces React/Preact Hooks are called only at top level of components, not in conditionals or loops."
+  },
+  {
+    "path": "lint/rules/require-await.md",
+    "title": "Disallow async functions without await (require-await)",
+    "summary": "Flags async functions or methods that contain no await expression/declaration, listing invalid async examples."
+  },
+  {
+    "path": "lint/rules/require-yield.md",
+    "title": "Disallow generator functions without yield (require-yield)",
+    "summary": "Disallows generator functions (function*) that have no `yield` keyword; allows empty generator bodies."
+  },
+  {
+    "path": "lint/rules/single-var-declarator.md",
+    "title": "Disallow multiple declarators in one statement (single-var-declarator)",
+    "summary": "Disallows multiple variable definitions in a single const/let statement like `const a=1, b=2`."
+  },
+  {
+    "path": "lint/rules/triple-slash-reference.md",
+    "title": "Disallow triple-slash reference directives (triple-slash-reference)",
+    "summary": "Reports triple-slash type directives (`reference path/types/lib`) and prefers ES6 import declarations instead."
+  },
+  {
+    "path": "lint/rules/use-isnan.md",
+    "title": "Disallow comparisons to NaN (use-isnan)",
+    "summary": "Requires `isNaN()` or `Number.isNaN()` instead of comparisons to `NaN` with ==, !=, ===, !==."
+  },
+  {
+    "path": "lint/rules/valid-typeof.md",
+    "title": "Restrict typeof comparisons to valid string literals (valid-typeof)",
+    "summary": "Restricts `typeof` comparisons to allowed string literals (undefined/object/boolean/number/string/function/symbol/bigint)."
+  },
+  {
+    "path": "lint/rules/verbatim-module-syntax.md",
+    "title": "Enforce type imports with verbatimModuleSyntax (verbatim-module-syntax)",
+    "summary": "Enforces that type-only imports use `import type` (and `type` specifier) for compatibility with `verbatimModuleSyntax`."
+  },
+  {
+    "path": "orama/README.md",
+    "title": "Orama Search Indexing for Deno Documentation",
+    "summary": "Describes Orama index generation/upload tasks (`generate:orama`, `generate:orama:full`, `upload:orama`) to avoid crawler limits."
+  },
+  {
+    "path": "runtime/cli_apps/index.md",
+    "title": "Build CLI apps",
+    "summary": "Guides building Deno CLI apps: parse args with `@std/cli`, prompt users, set exit codes, and `deno compile` to a binary."
+  },
+  {
+    "path": "runtime/contributing/architecture.md",
+    "title": "Architecture Overview",
+    "summary": "Maps Linux concepts to Deno internals (processes→web workers, syscalls→ops, fds→resource ids) in an architecture overview."
+  },
+  {
+    "path": "runtime/contributing/index.md",
+    "title": "Contributing and support",
+    "summary": "Provides Deno contribution entry points: overview of denoland projects and guidance to get started and submit PRs."
+  },
+  {
+    "path": "runtime/contributing/release_schedule.md",
+    "title": "Release Schedule",
+    "summary": "States Deno CLI minor release cadence (every 12 weeks), typical patch/merge-window process, and links to canary channel."
+  },
+  {
+    "path": "runtime/contributing/style_guide.md",
+    "title": "Deno Style Guide",
+    "summary": "Defines internal runtime/standard-library style rules, including required copyright headers for modules."
+  },
+  {
+    "path": "runtime/deploy/index.md",
+    "title": "Deploying your app",
+    "summary": "Lists production deployment options for Deno apps: Deno Deploy, containers/Docker, and other managed/self-hosted paths."
+  },
+  {
+    "path": "runtime/desktop/auto_update.md",
+    "title": "Auto-update",
+    "summary": "Documents `Deno.autoUpdate()` for deno desktop: bsdiff patch updates, manifest polling, and automatic rollback on failed launch."
+  },
+  {
+    "path": "runtime/desktop/backends.md",
+    "title": "Backends",
+    "summary": "Explains how to choose a deno desktop rendering backend via --backend or deno.json desktop.backend, defaulting to WebView."
+  },
+  {
+    "path": "runtime/desktop/bindings.md",
+    "title": "Bindings",
+    "summary": "Documents win.bind(name, handler) to call Deno-side functions from webview JS via bindings.\u003cname\u003e() returning a Promise."
+  },
+  {
+    "path": "runtime/desktop/comparison.md",
+    "title": "Comparison with other tools",
+    "summary": "Compares deno desktop to Electron, Electrobun, Tauri, and Dioxus across language, engine, process model, size, and built-ins."
+  },
+  {
+    "path": "runtime/desktop/configuration.md",
+    "title": "Configuration",
+    "summary": "Shows how to configure deno desktop in deno.json desktop block, including backend selection, deep-link scheme, output paths, and error reporting URL."
+  },
+  {
+    "path": "runtime/desktop/devtools.md",
+    "title": "DevTools",
+    "summary": "Describes unified Chrome DevTools for deno desktop, attaching one session to both Deno runtime and renderer V8 targets."
+  },
+  {
+    "path": "runtime/desktop/dialogs.md",
+    "title": "Dialogs",
+    "summary": "Implements browser globals prompt(), alert(), and confirm() as native popup dialogs instead of terminal prompts in deno desktop."
+  },
+  {
+    "path": "runtime/desktop/distribution.md",
+    "title": "Distribution",
+    "summary": "Covers cross-compiling deno desktop apps with per-target output formats and building by --target for macOS/Windows/Linux."
+  },
+  {
+    "path": "runtime/desktop/error_reporting.md",
+    "title": "Error reporting",
+    "summary": "Catches JS exceptions, unhandled rejections, and Rust panics, shows a native alert, and can POST a JSON error report."
+  },
+  {
+    "path": "runtime/desktop/frameworks.md",
+    "title": "Frameworks",
+    "summary": "Lets deno desktop auto-detect supported frameworks and embeds their build output, pointing the webview at the production server."
+  },
+  {
+    "path": "runtime/desktop/hmr.md",
+    "title": "Hot module replacement",
+    "summary": "Uses deno desktop --hmr to keep runtime/backend alive and selects HMR mechanism based on project type (framework dev server vs V8 hot-swap)."
+  },
+  {
+    "path": "runtime/desktop/index.md",
+    "title": "Desktop apps",
+    "summary": "Overview of deno desktop: builds a Deno project into a self-contained per-platform binary bundling code, Deno runtime, and web engine."
+  },
+  {
+    "path": "runtime/desktop/menus.md",
+    "title": "Menus",
+    "summary": "Defines native application menus and context menus using Deno.MenuItem tagged-union shapes for items, submenus, separators, and checks."
+  },
+  {
+    "path": "runtime/desktop/notifications.md",
+    "title": "Notifications",
+    "summary": "Implements the standard Web Notifications API to show native OS notifications via new Notification() in deno desktop."
+  },
+  {
+    "path": "runtime/desktop/serving.md",
+    "title": "HTTP serving",
+    "summary": "Explains how deno desktop serves UI over local HTTP using Deno.serve() with automatic unused port binding and DENO_SERVE_ADDRESS."
+  },
+  {
+    "path": "runtime/desktop/tray_and_dock.md",
+    "title": "Tray and dock",
+    "summary": "Documents Deno.Tray and Deno.dock for system status icons and macOS dock control, including menus and Deno.MenuItem usage."
+  },
+  {
+    "path": "runtime/desktop/webgpu.md",
+    "title": "WebGPU rendering",
+    "summary": "Explains WebGPU raw backend flow: request adapter, create UnsafeWindowSurface, configure canvas context, and run a render loop."
+  },
+  {
+    "path": "runtime/desktop/windows.md",
+    "title": "Windows",
+    "summary": "Documents Deno.BrowserWindow lifecycle and behavior: first window adoption, multiple windows, and handling navigation/input/focus events."
+  },
+  {
+    "path": "runtime/fundamentals/configuration.md",
+    "title": "Config files",
+    "summary": "Covers Deno project configuration using package.json and deno.json, including when to use each and how optional discovery works."
+  },
+  {
+    "path": "runtime/fundamentals/cpu_profiling.md",
+    "title": "CPU profiling",
+    "summary": "Shows how to capture V8 CPU profiles with deno run/eval --cpu-prof and where the .cpuprofile output is written."
+  },
+  {
+    "path": "runtime/fundamentals/cron.md",
+    "title": "Cron",
+    "summary": "Describes unstable Deno.cron scheduling via cron syntax and enabling it with --unstable-cron or deno.json unstable features."
+  },
+  {
+    "path": "runtime/fundamentals/debugging.md",
+    "title": "Debugging",
+    "summary": "Lists Deno V8 Inspector flags (--inspect, --inspect-wait, --inspect-brk) for debugging with Chrome DevTools and other clients."
+  },
+  {
+    "path": "runtime/fundamentals/ffi.md",
+    "title": "Foreign Function Interface (FFI)",
+    "summary": "Introduces Deno FFI for calling native dynamic libraries from JavaScript/TypeScript, including a link to the Deno FFI reference."
+  },
+  {
+    "path": "runtime/fundamentals/http_server.md",
+    "title": "Writing an HTTP Server",
+    "summary": "Guides writing HTTP servers with Deno.serve, including Request/Response handling, routing, static files, TLS, WebSockets, and streaming."
+  },
+  {
+    "path": "runtime/fundamentals/modules.md",
+    "title": "Modules",
+    "summary": "Explains Deno’s ECMAScript module system: imports/exports, import attributes and import maps, plus support for Wasm and data URLs."
+  },
+  {
+    "path": "runtime/fundamentals/node.md",
+    "title": "Node and npm Compatibility",
+    "summary": "Introduces Node/npm compatibility in Deno, stating most Node code runs with no changes and showing differences in environments."
+  },
+  {
+    "path": "runtime/fundamentals/open_telemetry.md",
+    "title": "OpenTelemetry",
+    "summary": "Introduces built-in OpenTelemetry support in Deno for exporting metrics, traces, and logs using observability tooling."
+  },
+  {
+    "path": "runtime/fundamentals/security.md",
+    "title": "Security and permissions",
+    "summary": "Details Deno’s secure-by-default permission model, requiring explicit flags/prompts for filesystem, network, and environment access."
+  },
+  {
+    "path": "runtime/fundamentals/stability_and_releases.md",
+    "title": "Stability and releases",
+    "summary": "Describes Deno stability guarantees and release cadence: stable vs minor/patch schedule, LTS concept, and backward compatibility policy."
+  },
+  {
+    "path": "runtime/fundamentals/typescript.md",
+    "title": "TypeScript support",
+    "summary": "States Deno’s first-class TypeScript support: run .ts directly with no build step and optional tsconfig.json with deno check."
+  },
+  {
+    "path": "runtime/fundamentals/web_dev.md",
+    "title": "Web development",
+    "summary": "Highlights Deno web development benefits: secure defaults, built-in TypeScript, and support for frameworks like Fresh/Next.js/Astro."
+  },
+  {
+    "path": "runtime/fundamentals/workspaces.md",
+    "title": "Workspaces and monorepos",
+    "summary": "Explains Deno workspaces/monorepos via root deno.json workspace globs (e.g., workspace: [\"./add\",\"./subtract\"])."
+  },
+  {
+    "path": "runtime/getting_started/installation.md",
+    "title": "Installation",
+    "summary": "Shows how to install Deno on Linux via deno_install convenience scripts and shell commands."
+  },
+  {
+    "path": "runtime/getting_started/setup_your_environment.md",
+    "title": "Set up your environment",
+    "summary": "Covers setting up editors with Deno, including using the built-in LSP and generating shell completions."
+  },
+  {
+    "path": "runtime/help.md",
+    "title": "Where to get help",
+    "summary": "Lists Deno help resources: Community Discord, Stack Overflow (deno tag), and DEV Deno community."
+  },
+  {
+    "path": "runtime/index.md",
+    "title": "Get started with Deno",
+    "summary": "Landing page for getting started with Deno: install, create/run/test, add dependencies, and use the built-in toolchain."
+  },
+  {
+    "path": "runtime/lint_and_format/index.md",
+    "title": "Linting and formatting",
+    "summary": "Documents Deno’s built-in code quality tools: deno lint and deno fmt, configured via deno.json."
+  },
+  {
+    "path": "runtime/migrate/index.md",
+    "title": "Migrate from Node.js",
+    "summary": "Describes migrating Node.js to Deno using package.json compatibility and mapping CommonJS/ESM behaviors."
+  },
+  {
+    "path": "runtime/migrate/migrate_from_bun.md",
+    "title": "Migrate from Bun",
+    "summary": "Guides Bun-to-Deno migration, noting Bun-specific APIs like Bun.serve, bun:sqlite, Bun.file, and $ shell replacements."
+  },
+  {
+    "path": "runtime/migrate/migrate_from_npm.md",
+    "title": "Migrate from npm",
+    "summary": "Shows migrating npm projects by reusing package.json, installing/resolving npm deps, and running npm scripts in Deno."
+  },
+  {
+    "path": "runtime/migrate/migrate_from_pnpm.md",
+    "title": "Migrate from pnpm",
+    "summary": "Explains pnpm-to-Deno migration, including auto-reading pnpm-workspace.yaml workspaces and catalogs."
+  },
+  {
+    "path": "runtime/migrate/migrate_from_yarn.md",
+    "title": "Migrate from Yarn",
+    "summary": "Covers Yarn migration to Deno, including handling Yarn Berry’s Plug'n'Play (PnP) since Deno doesn’t use it."
+  },
+  {
+    "path": "runtime/packages/index.md",
+    "title": "Dependency management",
+    "summary": "Introduces Deno as a package manager for npm and JSR, including install/add/update/audit and lockfile handling."
+  },
+  {
+    "path": "runtime/packages/peer_dependencies.md",
+    "title": "Peer dependencies",
+    "summary": "Explains how Deno resolves npm peerDependencies for consumers, including node_modules layout caveats and unmet-peer fixes."
+  },
+  {
+    "path": "runtime/packages/private_repositories.md",
+    "title": "Private repositories",
+    "summary": "Describes loading remote modules from private repositories using Deno bearer-token auth via DENO_AUTH_TOKENS."
+  },
+  {
+    "path": "runtime/packages/publishing.md",
+    "title": "Publishing packages",
+    "summary": "Covers publishing to JSR with deno publish and creating npm-compatible tarballs with deno pack, including registry choice."
+  },
+  {
+    "path": "runtime/packages/supply_chain.md",
+    "title": "Supply chain management",
+    "summary": "Explains how to keep Deno dependency installs deterministic and safe via lockfiles, trust policy, deno audit, and intentional updates."
+  },
+  {
+    "path": "runtime/reference/bundling.md",
+    "title": "Bundling",
+    "summary": "Documents experimental `deno bundle`, which uses ESBuild to output a single JS file with inlined dependencies and supports JSX/TSX."
+  },
+  {
+    "path": "runtime/reference/cli/add.md",
+    "title": "deno add",
+    "summary": "`deno add` adds dependencies to your config and notes Deno 2.8 treats unprefixed names as npm packages by default."
+  },
+  {
+    "path": "runtime/reference/cli/approve_scripts.md",
+    "title": "deno approve-scripts",
+    "summary": "`deno approve-scripts` interactively reviews and approves blocked npm lifecycle scripts like postinstall for dependencies."
+  },
+  {
+    "path": "runtime/reference/cli/audit.md",
+    "title": "deno audit",
+    "summary": "`deno audit` checks your lockfile against vulnerability databases and supports `--level` and `--ignore` CVEs."
+  },
+  {
+    "path": "runtime/reference/cli/bench.md",
+    "title": "deno bench",
+    "summary": "Shows how to write `Deno.bench()` in a TS file and run it with `deno bench` to produce benchmark output."
+  },
+  {
+    "path": "runtime/reference/cli/bump_version.md",
+    "title": "---",
+    "summary": "---"
+  },
+  {
+    "path": "runtime/reference/cli/bundle.md",
+    "title": "deno bundle",
+    "summary": "Overview of `deno bundle` (esbuild-based) combining your module and dependencies into a single optimized output file."
+  },
+  {
+    "path": "runtime/reference/cli/check.md",
+    "title": "deno check",
+    "summary": "`deno check` type-checks TS/JS without execution and accepts files, directories, or globs for scoping."
+  },
+  {
+    "path": "runtime/reference/cli/ci.md",
+    "title": "deno ci",
+    "summary": "`deno ci` performs a reproducible CI install like `npm ci` by requiring a lockfile and using `deno install --frozen` behavior."
+  },
+  {
+    "path": "runtime/reference/cli/clean.md",
+    "title": "deno clean",
+    "summary": "`deno clean` deletes the global module cache, supports `--dry-run`, and `--except` to keep entries required by specific files."
+  },
+  {
+    "path": "runtime/reference/cli/compile.md",
+    "title": "deno compile",
+    "summary": "`deno compile` embeds required runtime permission flags at compile time and can partially embed script arguments."
+  },
+  {
+    "path": "runtime/reference/cli/completions.md",
+    "title": "deno completions",
+    "summary": "`deno completions` generates shell completion scripts for `deno` commands and notes Homebrew-installed completions stay updated."
+  },
+  {
+    "path": "runtime/reference/cli/coverage.md",
+    "title": "deno coverage",
+    "summary": "`deno coverage` generates reports from `deno test --coverage` and supports `--include`/`--exclude` customization."
+  },
+  {
+    "path": "runtime/reference/cli/create.md",
+    "title": "deno create",
+    "summary": "`deno create` scaffolds projects from template packages and errors on unprefixed package names without `jsr:`/`npm:`."
+  },
+  {
+    "path": "runtime/reference/cli/deploy.md",
+    "title": "deno deploy",
+    "summary": "Explains how `deno deploy` publishes a local directory to Deno Deploy EA using tokens stored in the system keyring."
+  },
+  {
+    "path": "runtime/reference/cli/desktop.md",
+    "title": "deno desktop",
+    "summary": "Documents `deno desktop` (Deno 2.9+) compiling a Deno project into a self-contained desktop executable per platform."
+  },
+  {
+    "path": "runtime/reference/cli/doc.md",
+    "title": "deno doc",
+    "summary": "Shows `deno doc` output: it prints JSDoc for exported members of provided source files."
+  },
+  {
+    "path": "runtime/reference/cli/env_variables.md",
+    "title": "Configuring Deno behavior",
+    "summary": "Lists Deno environment variables like DENO_AUDIT_PERMISSIONS, DENO_AUTH_TOKENS, and DENO_TLS_CA_STORE and their effects."
+  },
+  {
+    "path": "runtime/reference/cli/eval.md",
+    "title": "deno eval",
+    "summary": "Describes `deno eval` running code directly from the CLI with all permissions enabled by default and ESM/CJS auto-detection."
+  },
+  {
+    "path": "runtime/reference/cli/fmt.md",
+    "title": "deno fmt",
+    "summary": "Covers `deno fmt` built-in dprint-based formatter, including basic usage and watch mode (`deno f`)."
+  },
+  {
+    "path": "runtime/reference/cli/index.md",
+    "title": "Deno CLI Subcommands",
+    "summary": "Provides the Deno CLI subcommands list with links, including run, serve, task, repl, and eval."
+  },
+  {
+    "path": "runtime/reference/cli/info.md",
+    "title": "deno info",
+    "summary": "Explains `deno info` dependency-tree inspection and automatic deno.json/deno.jsonc discovery with `--config` and `--no-config`."
+  },
+  {
+    "path": "runtime/reference/cli/init.md",
+    "title": "deno init",
+    "summary": "Shows `deno init` scaffolding example, creating `main.ts` and `main_test.ts` with run/test instructions."
+  },
+  {
+    "path": "runtime/reference/cli/install.md",
+    "title": "deno install",
+    "summary": "Documents `deno install` installing dependencies from deno.json and/or package.json and caching them for the project."
+  },
+  {
+    "path": "runtime/reference/cli/jupyter.md",
+    "title": "Jupyter Kernel for Deno",
+    "summary": "Describes `deno jupyter` built-in kernel and notes it always runs executed code with `--allow-all`."
+  },
+  {
+    "path": "runtime/reference/cli/link.md",
+    "title": "deno link",
+    "summary": "Explains `deno link` to link a local JSR package by pointing to a directory containing deno.json/package.json with `name`."
+  },
+  {
+    "path": "runtime/reference/cli/lint.md",
+    "title": "deno lint",
+    "summary": "Covers `deno lint` usage to analyze TypeScript/JavaScript files for errors and apply automated fixes."
+  },
+  {
+    "path": "runtime/reference/cli/list.md",
+    "title": "deno list",
+    "summary": "Explains `deno list` printing project dependencies from deno.json imports and package.json dependencies/devDependencies, grouped by package."
+  },
+  {
+    "path": "runtime/reference/cli/lsp.md",
+    "title": "deno lsp",
+    "summary": "Documents `deno lsp` starting the language server over stdin/stdout using the Language Server Protocol for editor features."
+  },
+  {
+    "path": "runtime/reference/cli/outdated.md",
+    "title": "deno outdated",
+    "summary": "Docs the `deno outdated` subcommand to find outdated NPM/JSR deps in deno.json/package.json (supports mixed workspaces)."
+  },
+  {
+    "path": "runtime/reference/cli/pack.md",
+    "title": "deno pack",
+    "summary": "Explains `deno pack` generating an npm-compatible .tgz: transpiles TS, emits .d.ts, rewrites imports, and synthesizes package.json."
+  },
+  {
+    "path": "runtime/reference/cli/publish.md",
+    "title": "deno publish",
+    "summary": "Details `deno publish` requirements: name/version/exports in deno.json or jsr.json, including @scope naming and semver version."
+  },
+  {
+    "path": "runtime/reference/cli/remove.md",
+    "title": "deno remove",
+    "summary": "Covers `deno remove`, which deletes dependencies from deno.json and/or package.json, without removing them from the global cache."
+  },
+  {
+    "path": "runtime/reference/cli/repl.md",
+    "title": "deno repl",
+    "summary": "Lists REPL special variables `_` (last result) and `_error` (last thrown error) in `deno repl`."
+  },
+  {
+    "path": "runtime/reference/cli/run.md",
+    "title": "deno run",
+    "summary": "Describes `deno run` sandbox defaults and how `--allow-*`/`--deny-*` permissions grant disk/network/subprocess access."
+  },
+  {
+    "path": "runtime/reference/cli/sandbox.md",
+    "title": "deno sandbox",
+    "summary": "Shows `deno sandbox` usage and auth: requires a Deno Deploy account and token to start a secure Linux microVM."
+  },
+  {
+    "path": "runtime/reference/cli/serve.md",
+    "title": "deno serve",
+    "summary": "Documents `deno serve` running an exported default with a fetch handler via Deno.serve, defaulting to port 8000."
+  },
+  {
+    "path": "runtime/reference/cli/task.md",
+    "title": "deno task",
+    "summary": "Explains `deno task` configuring codebase commands under the `tasks` key in deno.json and running them cross-platform."
+  },
+  {
+    "path": "runtime/reference/cli/test.md",
+    "title": "deno test",
+    "summary": "Covers `deno test` with Deno.test runner usage: running all tests, specific files, and glob patterns."
+  },
+  {
+    "path": "runtime/reference/cli/transpile.md",
+    "title": "deno transpile",
+    "summary": "Explains when to use `deno transpile` to emit JS from TS/JSX/TSX for runtimes/build steps that need plain .js output."
+  },
+  {
+    "path": "runtime/reference/cli/types.md",
+    "title": "deno types",
+    "summary": "Docs `deno types` to print built-in TypeScript declarations for Deno APIs, and save them to deno.d.ts."
+  },
+  {
+    "path": "runtime/reference/cli/uninstall.md",
+    "title": "deno uninstall",
+    "summary": "Describes `deno uninstall` to remove dependencies from deno.json/package.json, with `deno remove` as an alias."
+  },
+  {
+    "path": "runtime/reference/cli/unlink.md",
+    "title": "deno unlink",
+    "summary": "Explains `deno unlink` removing `deno link` local package links by path or JSR name by editing nearest deno.json links."
+  },
+  {
+    "path": "runtime/reference/cli/unstable_flags.md",
+    "title": "Unstable feature flags",
+    "summary": "Lists unstable feature flags and shows enabling them via CLI (e.g., `deno run --unstable-node-globals`) or deno.json."
+  },
+  {
+    "path": "runtime/reference/cli/update.md",
+    "title": "deno update",
+    "summary": "Documents `deno update` for upgrading dependency versions in deno.json/package.json, including `--latest` and semver-compatible default behavior."
+  },
+  {
+    "path": "runtime/reference/cli/upgrade.md",
+    "title": "deno upgrade",
+    "summary": "Shows `deno upgrade` usage to upgrade Deno to the latest version or a specified version via `--version`."
+  },
+  {
+    "path": "runtime/reference/cli/watch.md",
+    "title": "deno watch",
+    "summary": "Explains `deno watch` as a shorthand for `deno run --watch-hmr` to hot-reload modules on source changes."
+  },
+  {
+    "path": "runtime/reference/cli/why.md",
+    "title": "deno why",
+    "summary": "Describes `deno why` printing all dependency chains from direct dependencies to a queried package using the lockfile."
+  },
+  {
+    "path": "runtime/reference/cli/x.md",
+    "title": "deno x",
+    "summary": "Documents `deno x` to execute npm/JSR packages without installing permanently, with optional `--install-alias`."
+  },
+  {
+    "path": "runtime/reference/continuous_integration.md",
+    "title": "Continuous integration",
+    "summary": "Guides setting up CI pipelines for Deno using `deno test`, `deno lint`, `deno fmt`, and `deno coverage`, including GitHub Actions and caching."
+  },
+  {
+    "path": "runtime/reference/deno_json.md",
+    "title": "Configuration file (deno.json)",
+    "summary": "Reference for every `deno.json`/`deno.jsonc` field, including dependencies, import maps, tasks, lint/fmt, lockfile, exports, permissions, and proxies."
+  },
+  {
+    "path": "runtime/reference/deno_serve_legacy_abort.md",
+    "title": "Deno.serve request abort behavior",
+    "summary": "Explains legacy `Deno.serve` abort behavior where `request.signal` fires on successful responses, and how `--unstable-no-legacy-abort` changes it."
+  },
+  {
+    "path": "runtime/reference/docker.md",
+    "title": "Deno and Docker",
+    "summary": "Provides a Deno-on-Docker guide including official images, multi-stage Dockerfiles, and production setups for security and health checks."
+  },
+  {
+    "path": "runtime/reference/env_variables.md",
+    "title": "Environment variables",
+    "summary": "Covers using environment variables in Deno via `Deno.env`, .env file support, CLI configuration, and special env vars."
+  },
+  {
+    "path": "runtime/reference/index.md",
+    "title": "Reference",
+    "summary": "Top-level reference index linking to CLI subcommands, deno.json fields, environment variables, permissions, standard library, and runtime APIs."
+  },
+  {
+    "path": "runtime/reference/jsx.md",
+    "title": "JSX and React",
+    "summary": "Explains Deno JSX configuration for React/Preact/Hono, server-side rendering transform options, and per-file JSX pragmas and caveats."
+  },
+  {
+    "path": "runtime/reference/lint_plugins.md",
+    "title": "Lint Plugins",
+    "summary": "Introduces Deno lint plugins, including the stable plugin API (Deno 2.2+) for creating custom lint rules and fixes."
+  },
+  {
+    "path": "runtime/reference/loader_hooks.md",
+    "title": "Loader hooks",
+    "summary": "Documents Node-compatible `module.registerHooks()` loader hooks in Deno for custom module resolution, virtual modules, and transpilation."
+  },
+  {
+    "path": "runtime/reference/lsp_integration.md",
+    "title": "Language Server Integration",
+    "summary": "Technical guide for integrating Deno’s built-in LSP, covering commands, requests/notifications, and editor/tool integration details."
+  },
+  {
+    "path": "runtime/reference/migration_guide.md",
+    "title": "Deno 1.x to 2.x Migration Guide",
+    "summary": "One-time guide for migrating projects from Deno 1.x to 2.x, including breaking changes and code updates."
+  },
+  {
+    "path": "runtime/reference/node_apis.md",
+    "title": "Node APIs",
+    "summary": "Lists which Node.js globals and built-in modules Deno polyfills for Node compatibility."
+  },
+  {
+    "path": "runtime/reference/permissions.md",
+    "title": "Permissions",
+    "summary": "Reference for Deno sandbox permissions, documenting each --allow/--deny flag for I/O, network, env, system, and more."
+  },
+  {
+    "path": "runtime/reference/std/_overrides/README.md",
+    "title": "@std Package Overrides \u0026 Custom Blocks",
+    "summary": "Explains how generate_std_docs.ts appends _overrides markdown to autogenerated @std package pages."
+  },
+  {
+    "path": "runtime/reference/std/_overrides/internal.md",
+    "title": "@std/internal",
+    "summary": "Defines the @std/internal override page stating it’s internal use only and may change or be removed."
+  },
+  {
+    "path": "runtime/reference/std/_overrides/log.md",
+    "title": "@std/log",
+    "summary": "Marks @std/log as no longer recommended and suggests OpenTelemetry for production systems."
+  },
+  {
+    "path": "runtime/reference/ts_config_migration.md",
+    "title": "Configuring TypeScript",
+    "summary": "Guide to configuring TypeScript in Deno, covering tsconfig options, JS type checking, and declaration support."
+  },
+  {
+    "path": "runtime/reference/vscode.md",
+    "title": "Deno \u0026 Visual Studio Code",
+    "summary": "How to use Deno with VS Code via the vscode_deno extension, including language-server (LSP) integration."
+  },
+  {
+    "path": "runtime/reference/wasm.md",
+    "title": "WebAssembly",
+    "summary": "WebAssembly in Deno: module imports, type checking, streaming APIs, and working with Wasm-compiled languages."
+  },
+  {
+    "path": "runtime/reference/web_platform_apis.md",
+    "title": "Web Platform APIs",
+    "summary": "Covers Web Platform APIs in Deno like fetch, WebSockets, workers, and notes deviations from browser specs."
+  },
+  {
+    "path": "runtime/run/index.md",
+    "title": "Run code",
+    "summary": "Deno run guide: permissions sandbox, launching files/URLs/stdin, script args, watch mode, and tasks."
+  },
+  {
+    "path": "runtime/run/watch_mode.md",
+    "title": "Watch mode and HMR",
+    "summary": "Explains --watch and --watch-hmr in Deno, including what files are watched and how hot module replacement works."
+  },
+  {
+    "path": "runtime/test/coverage.md",
+    "title": "Test coverage",
+    "summary": "Workflow for coverage in Deno: collect with deno test --coverage, then generate reports via deno coverage."
+  },
+  {
+    "path": "runtime/test/doc_tests.md",
+    "title": "Documentation tests",
+    "summary": "Documentation tests: run JSDoc/markdown code blocks as tests using deno test --doc to prevent stale docs."
+  },
+  {
+    "path": "runtime/test/index.md",
+    "title": "Testing",
+    "summary": "Overview of Deno’s built-in test runner (deno test), including assertions, hooks, filtering, and reporters."
+  },
+  {
+    "path": "runtime/test/migrate_from_jest.md",
+    "title": "Migrating from Jest",
+    "summary": "Shows how to migrate Jest tests to deno test using node:test describe/it and jsr:@std/expect matchers and fn/mocks."
+  },
+  {
+    "path": "runtime/test/mocking.md",
+    "title": "Mocking and test doubles",
+    "summary": "Covers isolating code with test doubles and how to use @std/testing/mock for spies, stubs, and fake time."
+  },
+  {
+    "path": "runtime/test/sanitizers.md",
+    "title": "Test sanitizers",
+    "summary": "Explains deno test sanitizers, including the resource sanitizer that checks all created I/O resources are closed."
+  },
+  {
+    "path": "runtime/test/snapshots.md",
+    "title": "Snapshot testing",
+    "summary": "Describes snapshot testing in deno test, storing serialized output and updating via --update-snapshots."
+  },
+  {
+    "path": "sandbox/apps.md",
+    "title": "Programmatic management of Deno Deploy Apps",
+    "summary": "Details managing Deno Deploy apps via the @deno/sandbox Client (create/list/update/delete) using the Deno Deploy REST API."
+  },
+  {
+    "path": "sandbox/cli.md",
+    "title": "Management via CLI",
+    "summary": "Documents using deno sandbox CLI commands like deno sandbox create to start an interactive SSH-capable sandbox."
+  },
+  {
+    "path": "sandbox/create.md",
+    "title": "Create a Deno Sandbox",
+    "summary": "Shows Sandbox.create() provisioning flow and options for runtime, network, and lifecycle when creating a Deno Sandbox."
+  },
+  {
+    "path": "sandbox/expose_http.md",
+    "title": "Expose HTTP",
+    "summary": "Explains exposing HTTP from a sandbox by passing { port } to Sandbox.create and serving via deno serve."
+  },
+  {
+    "path": "sandbox/getting_started.md",
+    "title": "Getting started",
+    "summary": "Walks through signing in to console.deno.com, selecting an org, and using the Sandboxes dashboard for tokens and usage."
+  },
+  {
+    "path": "sandbox/index.md",
+    "title": "Deno Sandbox",
+    "summary": "Provides an overview of Deno Sandbox microVMs on Deploy: isolation, API-driven @deno/sandbox usage, and ephemeral default behavior."
+  },
+  {
+    "path": "sandbox/promote.md",
+    "title": "Promote Deno Sandbox to Deploy Apps",
+    "summary": "Explains promoting a sandbox to a Deno Deploy app using sandbox.deno.deploy() and compares lifetime/control differences."
+  },
+  {
+    "path": "sandbox/security.md",
+    "title": "Security",
+    "summary": "Describes Deno Sandbox defense-in-depth, including secret redaction/substitution only for outbound requests to approved hosts."
+  },
+  {
+    "path": "sandbox/ssh.md",
+    "title": "SSH",
+    "summary": "Shows how to expose SSH credentials with sandbox.exposeSsh() and keep the sandbox alive for interactive debugging."
+  },
+  {
+    "path": "sandbox/timeouts.md",
+    "title": "Sandbox Timeouts",
+    "summary": "Explains sandbox ephemerality and how to control default session lifetime, extend/reconnect, and promote when needed."
+  },
+  {
+    "path": "sandbox/volumes.md",
+    "title": "Volumes \u0026 Snapshots",
+    "summary": "Covers Deno Sandbox persistent storage primitives: read-write Volumes and read-only Snapshots for instant boot images."
+  },
+  {
+    "path": "static/agents.md",
+    "title": "Deno for coding agents",
+    "summary": "Explains Deno’s sandboxed-by-default runtime for coding agents and how to add specific --allow-* permissions."
+  },
+  {
+    "path": "static/fonts/inter/hacked/README.md",
+    "title": "Fonts hacked for Satori OG images",
+    "summary": "Documents hacked Inter fonts for Satori OG images, warning they’re not safe for other uses due to altered glyphs."
+  },
+  {
+    "path": "styleguide/index.md",
+    "title": "Style Guide",
+    "summary": "Lists Deno documentation styleguide sections: Typography, OG images, and Components."
+  },
+  {
+    "path": "styleguide/og.md",
+    "title": "Example OG images",
+    "summary": "Shows example OG image outputs for title+description, title-only, and short title with long description."
+  },
+  {
+    "path": "styleguide/og/cli-commands.md",
+    "title": "An example OG image with only a title that is long enough to wrap",
+    "summary": "Example OG image config for CLI commands with title \"deno command\" using openGraphLayout and image preview."
+  },
+  {
+    "path": "styleguide/og/color-override.md",
+    "title": "Override the color of the OG image",
+    "summary": "Example OG image showing how to override default OG color via openGraphColor set to \"#b3e0ff\"."
+  },
+  {
+    "path": "styleguide/og/short-title-and-long-description.md",
+    "title": "Short title example",
+    "summary": "Example OG image variant with a short title and longer description that wraps under the title."
+  },
+  {
+    "path": "styleguide/og/short-title-and-short-description.md",
+    "title": "Short title example",
+    "summary": "Example OG image variant with a short title and a short description, demonstrating compact metadata rendering."
+  },
+  {
+    "path": "styleguide/og/title-and-description-superscript.md",
+    "title": "Superscriptᴱᴬ in the title",
+    "summary": "Example OG image where the title contains superscript characters (Superscriptᴱᴬ) along with a description."
+  },
+  {
+    "path": "styleguide/og/title-and-description.md",
+    "title": "An example OG image with a title that is long enough to wrap",
+    "summary": "Example OG image where the title wraps onto three lines and includes a longer description."
+  },
+  {
+    "path": "styleguide/og/title-only.md",
+    "title": "An example OG image with only a title that is long enough to wrap",
+    "summary": "Example OG image variant rendering only a long title without any description."
+  },
+  {
+    "path": "styleguide/writing.md",
+    "title": "Deno Documentation Style Guide",
+    "summary": "Provides Deno docs writing rules, including required front matter fields like title, description, and optional oldUrl."
+  },
+  {
+    "path": "subhosting/api/authentication.md",
+    "title": "Authentication",
+    "summary": "Describes Subhosting v1 REST API authentication using HTTP bearer tokens and where to create access tokens."
+  },
+  {
+    "path": "subhosting/api/index.md",
+    "title": "Subhosting Resources",
+    "summary": "Overview of Subhosting v1 resources with a warning to migrate to the v2 API before July 20, 2026."
+  },
+  {
+    "path": "subhosting/index.md",
+    "title": "",
+    "summary": "No content provided in the excerpt."
+  },
+  {
+    "path": "subhosting/manual/acceptable_use_policy.md",
+    "title": "Acceptable use policy",
+    "summary": "Lists acceptable and unacceptable Deno Subhosting use patterns under CPU/request resource limits."
+  },
+  {
+    "path": "subhosting/manual/api_migration_guide.md",
+    "title": "Migrating from subhosting API v1 to v2",
+    "summary": "Guide to migrating subhosting API v1 (api.deno.com/v1) to v2 (api.deno.com/v2) before July 20, 2026."
+  },
+  {
+    "path": "subhosting/manual/events.md",
+    "title": "Deployment events",
+    "summary": "Explains deployment event logging and how to use the deployment logs API to read events like boot."
+  },
+  {
+    "path": "subhosting/manual/index.md",
+    "title": "About Subhosting",
+    "summary": "Overview of Deno Subhosting for SaaS providers, including key features and programmatic deployment of untrusted code."
+  },
+  {
+    "path": "subhosting/manual/planning_your_implementation.md",
+    "title": "Planning your implementation",
+    "summary": "Planning guide with an example SaaS CRM use case using projects to run customer JavaScript per new lead."
+  },
+  {
+    "path": "subhosting/manual/pricing_and_limits.md",
+    "title": "Pricing and Limits",
+    "summary": "Describes Deno Subhosting pricing plans and constraints like maximum deployment size under 1GB."
+  },
+  {
+    "path": "subhosting/manual/quick_start.md",
+    "title": "Subhosting Quick Start",
+    "summary": "Quick start for deploying to Deno isolate cloud, including v1 API setup with DEPLOY_ACCESS_TOKEN and DEPLOY_ORG_ID."
+  }
+]
