@@ -12,7 +12,7 @@ corpus, the other found each query's actual ground-truth answer doc (or
 marked it `coverage: none` if nothing answers it). Five exploration methods
 were then run against that fixed eval set and scored against ground truth.
 
-See [`2026-09-03-i-think-i-reinvented-rag-with-grep.md`](2026-09-03-i-think-i-reinvented-rag-with-grep.md)
+See ["I Think I Reinvented RAG With Grep"](https://n0tls.com/2026-09-03-i-think-i-reinvented-rag-with-grep.html)
 for the full writeup and results table.
 
 ## Layout
