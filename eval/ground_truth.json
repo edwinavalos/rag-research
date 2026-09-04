@@ -1,0 +1,362 @@
+[
+  {
+    "id": "q001",
+    "query": "how do I convert a package.json based project to Deno",
+    "ideal_doc": "runtime/migrate/migrate_from_npm.md",
+    "acceptable_docs": ["runtime/migrate/index.md"],
+    "rationale": "This page is dedicated to moving an existing package.json/npm project onto Deno, covering deno install, deno.lock seeding, and running package.json scripts with deno task.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q002",
+    "query": "how to read a file with deno",
+    "ideal_doc": "api/deno/index.md",
+    "acceptable_docs": ["runtime/fundamentals/security.md"],
+    "rationale": "The Deno Namespace APIs overview has a File System section that names Deno.readTextFile directly and explains the --allow-read permission needed; the corpus has no standalone 'reading files' tutorial page.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q003",
+    "query": "steps to deploy a deno project from github repo to production",
+    "ideal_doc": "deploy/getting_started.md",
+    "acceptable_docs": ["deploy/classic/how-to-deploy.md"],
+    "rationale": "This is the current, step-by-step guide for creating an app on Deno Deploy and linking/deploying it from a GitHub repository.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q004",
+    "query": "PermissionDenied: Requires read access to \"/etc/hosts\"",
+    "ideal_doc": "runtime/reference/permissions.md",
+    "acceptable_docs": ["runtime/fundamentals/security.md"],
+    "rationale": "The permissions reference explains the --allow-read flag needed to grant file read access; fundamentals/security.md even uses Deno.readTextFile(\"/etc/hosts\") as its worked example of a permission error.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q005",
+    "query": "deno test runner assertEquals import",
+    "ideal_doc": "runtime/test/index.md",
+    "acceptable_docs": ["examples/tutorials/testing.md"],
+    "rationale": "The test runner reference repeatedly shows importing assertEquals from jsr:@std/assert and using it inside Deno.test, which is exactly what a beginner writing their first test needs.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q006",
+    "query": "how to ignore a specific lint rule on one line in deno",
+    "ideal_doc": "runtime/lint_and_format/index.md",
+    "acceptable_docs": ["lint/rules/ban-untagged-ignore.md"],
+    "rationale": "This page explicitly documents the `// deno-lint-ignore <rule-name>` directive for silencing a rule on one line.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q007",
+    "query": "deno kv atomic transaction example",
+    "ideal_doc": "deploy/kv/transactions.md",
+    "acceptable_docs": [],
+    "rationale": "This page walks through kv.atomic(), version-stamp checks, and mutation limits with a worked transaction example.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q008",
+    "query": "what is deno sandbox used for",
+    "ideal_doc": "sandbox/index.md",
+    "acceptable_docs": [],
+    "rationale": "The Deno Sandbox overview page directly answers 'what is it' and lists ideal use cases (AI agents, untrusted code execution, ephemeral dev environments).",
+    "coverage": "direct"
+  },
+  {
+    "id": "q009",
+    "query": "how do I programmatically deploy code on behalf of my users with deno subhosting",
+    "ideal_doc": "subhosting/manual/quick_start.md",
+    "acceptable_docs": ["subhosting/manual/planning_your_implementation.md", "subhosting/api/index.md"],
+    "rationale": "The Subhosting Quick Start gives a minimal, complete code example of using the REST API to create a project and deployment on behalf of an end user.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q010",
+    "query": "does deno support require() and __dirname",
+    "ideal_doc": "runtime/fundamentals/node.md",
+    "acceptable_docs": ["runtime/reference/node_apis.md"],
+    "rationale": "This page has a compatibility table showing __dirname/__filename are not defined (use import.meta.dirname/filename) and documents require() support in CommonJS files.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q011",
+    "query": "deno vs node vs bun performance comparison",
+    "ideal_doc": null,
+    "acceptable_docs": [],
+    "rationale": "No page in this corpus benchmarks or compares Deno, Node, and Bun performance; migrate_from_bun.md covers migration mechanics only, not speed comparisons.",
+    "coverage": "none"
+  },
+  {
+    "id": "q012",
+    "query": "error: Uncaught (in promise) TypeError: Deno.core is not a function",
+    "ideal_doc": null,
+    "acceptable_docs": [],
+    "rationale": "'Deno.core' does not appear anywhere in the corpus; this is an internal/unstable API and there is no troubleshooting entry for this error.",
+    "coverage": "none"
+  },
+  {
+    "id": "q013",
+    "query": "run typescript file directly without compiling",
+    "ideal_doc": "runtime/fundamentals/typescript.md",
+    "acceptable_docs": [],
+    "rationale": "This page states TypeScript is first-class in Deno with no compiler or build step needed, and shows running a .ts file directly with deno run.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q014",
+    "query": "deno allow all flag security risk",
+    "ideal_doc": "runtime/fundamentals/security.md",
+    "acceptable_docs": ["runtime/reference/permissions.md"],
+    "rationale": "This page explicitly warns that -A/--allow-all 'turns the sandbox off entirely, giving the same access as running code in Node, so reach for it sparingly.'",
+    "coverage": "direct"
+  },
+  {
+    "id": "q015",
+    "query": "how do I set environment variables and secrets on deno deploy",
+    "ideal_doc": "deploy/reference/env_vars_and_contexts.md",
+    "acceptable_docs": ["deploy/classic/environment-variables.md"],
+    "rationale": "This is the current reference page for setting plain-text and secret environment variables per app/org and per context on Deno Deploy.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q016",
+    "query": "import express from npm in deno",
+    "ideal_doc": "examples/tutorials/express.md",
+    "acceptable_docs": ["runtime/fundamentals/node.md"],
+    "rationale": "This tutorial walks through `deno add npm:express` and `import express from \"express\"` end to end.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q017",
+    "query": "what is JSR and how is it different from npm",
+    "ideal_doc": "runtime/packages/index.md",
+    "acceptable_docs": [],
+    "rationale": "This page describes Deno as a package manager for both npm and JSR packages, with side-by-side install syntax and behavioral differences.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q018",
+    "query": "how to mock fetch calls in deno tests",
+    "ideal_doc": "examples/tutorials/testing.md",
+    "acceptable_docs": ["runtime/test/mocking.md"],
+    "rationale": "This tutorial has a complete worked example stubbing globalThis.fetch with stub() from jsr:@std/testing/mock, including why a plain assignment doesn't work.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q019",
+    "query": "deno fmt config options line width",
+    "ideal_doc": "runtime/reference/deno_json.md",
+    "acceptable_docs": [],
+    "rationale": "The deno.json reference documents the fmt.lineWidth option (default 80) among all other formatter fields.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q020",
+    "query": "does deno kv work locally without deploy",
+    "ideal_doc": "deploy/kv/index.md",
+    "acceptable_docs": ["deploy/reference/deno_kv.md"],
+    "rationale": "The Deno KV Quick Start states it is 'available in the Deno CLI and on Deno Deploy' and shows opening a local KV database with Deno.openKv().",
+    "coverage": "direct"
+  },
+  {
+    "id": "q021",
+    "query": "deno process using too much memory in production",
+    "ideal_doc": null,
+    "acceptable_docs": ["deploy/reference/apps.md", "runtime/fundamentals/cpu_profiling.md"],
+    "rationale": "No page covers diagnosing or reducing Deno process memory usage; the only 'memory' hits are Deploy build/runtime memory-limit config flags and CPU (not memory) profiling, neither of which is a troubleshooting guide.",
+    "coverage": "none"
+  },
+  {
+    "id": "q022",
+    "query": "error TS2307: Cannot find module or its corresponding type declarations",
+    "ideal_doc": "runtime/migrate/index.md",
+    "acceptable_docs": [],
+    "rationale": "The 'Common errors and fixes' section lists 'Cannot find module / missing node_modules' and tells you to run deno install or set nodeModulesDir, the standard fix behind TS2307 in Deno.",
+    "coverage": "partial"
+  },
+  {
+    "id": "q023",
+    "query": "deno hello world tutorial",
+    "ideal_doc": "runtime/index.md",
+    "acceptable_docs": ["examples/tutorials/initialize_project.md"],
+    "rationale": "The 'Get started with Deno' landing page takes a new user from install through creating, running, and testing their first project.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q024",
+    "query": "equivalent of process.env in deno",
+    "ideal_doc": "runtime/reference/env_variables.md",
+    "acceptable_docs": ["runtime/fundamentals/node.md"],
+    "rationale": "This page documents the Deno.env API (get/set/has) as the built-in equivalent for reading and writing environment variables.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q025",
+    "query": "custom domains and https on deno deploy",
+    "ideal_doc": "deploy/reference/domains.md",
+    "acceptable_docs": ["deploy/classic/custom-domains.md"],
+    "rationale": "This is the current, dedicated reference for adding custom domains, DNS configuration, and TLS certificates on Deno Deploy.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q026",
+    "query": "subhosting pricing and isolate limits per tenant",
+    "ideal_doc": "subhosting/manual/pricing_and_limits.md",
+    "acceptable_docs": [],
+    "rationale": "This page directly documents Subhosting deployment size, deployment frequency, and CPU-time-per-request limits alongside pricing plan pointers.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q027",
+    "query": "run untrusted user code safely with resource limits",
+    "ideal_doc": "sandbox/index.md",
+    "acceptable_docs": ["sandbox/security.md"],
+    "rationale": "This page states Sandbox is designed for running untrusted code and lists its concrete resource limits (memory, CPU, lifetime, disk, concurrency).",
+    "coverage": "direct"
+  },
+  {
+    "id": "q028",
+    "query": "how to grant network access only to a specific domain",
+    "ideal_doc": "runtime/reference/permissions.md",
+    "acceptable_docs": ["runtime/fundamentals/security.md"],
+    "rationale": "This reference shows scoped --allow-net=example.com syntax, including comma-separated and wildcard domain forms.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q029",
+    "query": "deno test coverage report html",
+    "ideal_doc": "runtime/test/coverage.md",
+    "acceptable_docs": ["runtime/reference/cli/coverage.md"],
+    "rationale": "This page explains the deno test --coverage / deno coverage workflow and states it writes an HTML report into the coverage directory.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q030",
+    "query": "is deno production ready in 2026",
+    "ideal_doc": null,
+    "acceptable_docs": ["runtime/fundamentals/stability_and_releases.md"],
+    "rationale": "No page directly makes a 'production ready' claim or comparison for 2026; stability_and_releases.md covers versioning/release channels but doesn't answer the readiness question itself.",
+    "coverage": "none"
+  },
+  {
+    "id": "q031",
+    "query": "deno compile to standalone executable",
+    "ideal_doc": "runtime/reference/cli/compile.md",
+    "acceptable_docs": [],
+    "rationale": "This is the dedicated CLI reference for `deno compile`, which packages a script into a standalone executable.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q032",
+    "query": "deno kv secondary index query pattern",
+    "ideal_doc": "deploy/kv/secondary_indexes.md",
+    "acceptable_docs": [],
+    "rationale": "This page is dedicated to the secondary-index pattern in Deno KV, including the pointer-index best practice.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q033",
+    "query": "Module not found \"file:///deno-dir/npm/registry.npmjs.org/...\"",
+    "ideal_doc": null,
+    "acceptable_docs": ["runtime/migrate/index.md", "runtime/reference/cli/clean.md"],
+    "rationale": "No page documents this specific cached-npm-module error; the closest related material is the generic 'Cannot find module' FAQ entry and deno clean for clearing a stale cache, neither of which addresses this exact error text.",
+    "coverage": "none"
+  },
+  {
+    "id": "q034",
+    "query": "deno.json vs deno.jsonc which one should I use",
+    "ideal_doc": "runtime/reference/deno_json.md",
+    "acceptable_docs": [],
+    "rationale": "This is the configuration file reference, which documents both deno.json and deno.jsonc as accepted formats for the same fields.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q035",
+    "query": "share lint and fmt config across a monorepo of deno projects",
+    "ideal_doc": "runtime/fundamentals/workspaces.md",
+    "acceptable_docs": ["runtime/lint_and_format/index.md"],
+    "rationale": "This page shows workspace-level lint/fmt configuration, how member packages inherit or override it, and a table of which fields merge across workspace members.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q036",
+    "query": "deno deploy cold start times",
+    "ideal_doc": "deploy/reference/runtime.md",
+    "acceptable_docs": [],
+    "rationale": "This page has a dedicated cold start section stating typical cold start durations and listing optimizations Deno Deploy applies.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q037",
+    "query": "subhosting vs deploy what's the difference",
+    "ideal_doc": "subhosting/manual/index.md",
+    "acceptable_docs": ["subhosting/index.md"],
+    "rationale": "This page explicitly contrasts Deno Deploy ('optimized for individual developers and small teams') with Deno Subhosting ('engineered to securely manage a larger volume of' multi-tenant deployments).",
+    "coverage": "direct"
+  },
+  {
+    "id": "q038",
+    "query": "porting an express server to deno with oak or hono",
+    "ideal_doc": "examples/tutorials/express.md",
+    "acceptable_docs": [],
+    "rationale": "This tutorial shows running an existing Express server directly under Deno via npm:express, which is the documented migration path; the corpus has no page specifically about porting to oak or hono (only example scripts, not prose docs).",
+    "coverage": "partial"
+  },
+  {
+    "id": "q039",
+    "query": "deno permissions flag",
+    "ideal_doc": "runtime/reference/permissions.md",
+    "acceptable_docs": ["runtime/fundamentals/security.md"],
+    "rationale": "This is the canonical reference for every --allow-*/--deny-* permission flag.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q040",
+    "query": "how to test a deno http server with fetch and assert response status",
+    "ideal_doc": "examples/tutorials/testing.md",
+    "acceptable_docs": ["runtime/test/index.md"],
+    "rationale": "This tutorial has async testing examples that call fetch() and assertEquals(status, 200/404) against responses, directly matching the pattern asked about.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q041",
+    "query": "sandbox execution timeout limit exceeded error",
+    "ideal_doc": "sandbox/timeouts.md",
+    "acceptable_docs": [],
+    "rationale": "This page explains sandbox default and duration-based timeouts and how to extend them, directly addressing why a sandbox's execution would be cut off.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q042",
+    "query": "connecting to postgres from deno deploy",
+    "ideal_doc": "deploy/reference/databases.md",
+    "acceptable_docs": ["deploy/classic/postgres.md", "deploy/classic/neon-postgres.md", "deploy/classic/prisma-postgres.md"],
+    "rationale": "This is the current Deploy databases reference describing PostgreSQL connections, provisioning, and per-environment isolated databases.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q043",
+    "query": "can I still use a node_modules folder with deno",
+    "ideal_doc": "runtime/fundamentals/node.md",
+    "acceptable_docs": ["runtime/reference/deno_json.md"],
+    "rationale": "This page has a 'Control node_modules' section covering the none/auto/manual nodeModulesDir modes and when a local node_modules directory is created.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q044",
+    "query": "how does deno work",
+    "ideal_doc": "runtime/index.md",
+    "acceptable_docs": ["runtime/contributing/architecture.md", "runtime/fundamentals/security.md"],
+    "rationale": "The 'Get started with Deno' landing page gives the high-level answer (secure-by-default sandbox, TypeScript-first, module system) that a broad 'how does it work' query is looking for; architecture.md covers deeper internals for readers who want more.",
+    "coverage": "direct"
+  },
+  {
+    "id": "q045",
+    "query": "Leaks detected: 1 async op leaked in test",
+    "ideal_doc": "runtime/test/sanitizers.md",
+    "acceptable_docs": [],
+    "rationale": "This page documents the async operation sanitizer, which is exactly what produces this 'leaked' error when a test starts an async op it never awaits or cancels.",
+    "coverage": "direct"
+  }
+]

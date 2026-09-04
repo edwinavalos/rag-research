@@ -1,0 +1,317 @@
+[
+  {
+    "id": "q001",
+    "persona": "Node.js developer migrating to Deno",
+    "query": "how do I convert a package.json based project to Deno",
+    "category": "migration",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q002",
+    "persona": "beginner scripting for the first time",
+    "query": "how to read a file with deno",
+    "category": "runtime-fundamentals",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q003",
+    "persona": "backend engineer setting up Deno Deploy",
+    "query": "steps to deploy a deno project from github repo to production",
+    "category": "deploy",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q004",
+    "persona": "someone debugging permissions errors",
+    "query": "PermissionDenied: Requires read access to \"/etc/hosts\"",
+    "category": "permissions",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q005",
+    "persona": "someone writing tests",
+    "query": "deno test runner assertEquals import",
+    "category": "testing",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q006",
+    "persona": "someone configuring linting/formatting",
+    "query": "how to ignore a specific lint rule on one line in deno",
+    "category": "lint",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q007",
+    "persona": "someone using Deno KV",
+    "query": "deno kv atomic transaction example",
+    "category": "kv",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q008",
+    "persona": "someone using the Sandbox product",
+    "query": "what is deno sandbox used for",
+    "category": "sandbox",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q009",
+    "persona": "someone using Subhosting",
+    "query": "how do I programmatically deploy code on behalf of my users with deno subhosting",
+    "category": "subhosting",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q010",
+    "persona": "Node.js developer migrating to Deno",
+    "query": "does deno support require() and __dirname",
+    "category": "migration",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q011",
+    "persona": "backend engineer",
+    "query": "deno vs node vs bun performance comparison",
+    "category": "troubleshooting",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q012",
+    "persona": "someone hitting an error message",
+    "query": "error: Uncaught (in promise) TypeError: Deno.core is not a function",
+    "category": "troubleshooting",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q013",
+    "persona": "beginner scripting for the first time",
+    "query": "run typescript file directly without compiling",
+    "category": "runtime-fundamentals",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q014",
+    "persona": "someone debugging permissions errors",
+    "query": "deno allow all flag security risk",
+    "category": "permissions",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q015",
+    "persona": "backend engineer setting up Deno Deploy",
+    "query": "how do I set environment variables and secrets on deno deploy",
+    "category": "deploy",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q016",
+    "persona": "someone using npm packages",
+    "query": "import express from npm in deno",
+    "category": "npm-compat",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q017",
+    "persona": "someone comparing package registries",
+    "query": "what is JSR and how is it different from npm",
+    "category": "npm-compat",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q018",
+    "persona": "someone writing tests",
+    "query": "how to mock fetch calls in deno tests",
+    "category": "testing",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q019",
+    "persona": "someone configuring linting/formatting",
+    "query": "deno fmt config options line width",
+    "category": "lint",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q020",
+    "persona": "someone using Deno KV",
+    "query": "does deno kv work locally without deploy",
+    "category": "kv",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q021",
+    "persona": "performance/production troubleshooting engineer",
+    "query": "deno process using too much memory in production",
+    "category": "troubleshooting",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q022",
+    "persona": "someone hitting an error message",
+    "query": "error TS2307: Cannot find module or its corresponding type declarations",
+    "category": "troubleshooting",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q023",
+    "persona": "beginner scripting for the first time",
+    "query": "deno hello world tutorial",
+    "category": "runtime-fundamentals",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q024",
+    "persona": "Node.js developer migrating to Deno",
+    "query": "equivalent of process.env in deno",
+    "category": "migration",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q025",
+    "persona": "backend engineer setting up Deno Deploy",
+    "query": "custom domains and https on deno deploy",
+    "category": "deploy",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q026",
+    "persona": "someone using Subhosting",
+    "query": "subhosting pricing and isolate limits per tenant",
+    "category": "subhosting",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q027",
+    "persona": "someone using the Sandbox product",
+    "query": "run untrusted user code safely with resource limits",
+    "category": "sandbox",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q028",
+    "persona": "someone debugging permissions errors",
+    "query": "how to grant network access only to a specific domain",
+    "category": "permissions",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q029",
+    "persona": "someone writing tests",
+    "query": "deno test coverage report html",
+    "category": "testing",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q030",
+    "persona": "someone comparing runtimes",
+    "query": "is deno production ready in 2026",
+    "category": "troubleshooting",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q031",
+    "persona": "CLI power user",
+    "query": "deno compile to standalone executable",
+    "category": "runtime-fundamentals",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q032",
+    "persona": "someone using Deno KV",
+    "query": "deno kv secondary index query pattern",
+    "category": "kv",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q033",
+    "persona": "someone hitting an error message",
+    "query": "Module not found \"file:///deno-dir/npm/registry.npmjs.org/...\"",
+    "category": "npm-compat",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q034",
+    "persona": "beginner scripting for the first time",
+    "query": "deno.json vs deno.jsonc which one should I use",
+    "category": "runtime-fundamentals",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q035",
+    "persona": "someone configuring linting/formatting",
+    "query": "share lint and fmt config across a monorepo of deno projects",
+    "category": "lint",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q036",
+    "persona": "backend engineer setting up Deno Deploy",
+    "query": "deno deploy cold start times",
+    "category": "deploy",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q037",
+    "persona": "someone using Subhosting",
+    "query": "subhosting vs deploy what's the difference",
+    "category": "subhosting",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q038",
+    "persona": "Node.js developer migrating to Deno",
+    "query": "porting an express server to deno with oak or hono",
+    "category": "migration",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q039",
+    "persona": "someone debugging permissions errors",
+    "query": "deno permissions flag",
+    "category": "permissions",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q040",
+    "persona": "someone writing tests",
+    "query": "how to test a deno http server with fetch and assert response status",
+    "category": "testing",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q041",
+    "persona": "someone using the Sandbox product",
+    "query": "sandbox execution timeout limit exceeded error",
+    "category": "sandbox",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q042",
+    "persona": "backend engineer",
+    "query": "connecting to postgres from deno deploy",
+    "category": "deploy",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q043",
+    "persona": "someone comparing package managers",
+    "query": "can I still use a node_modules folder with deno",
+    "category": "npm-compat",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q044",
+    "persona": "vague broad query asker",
+    "query": "how does deno work",
+    "category": "runtime-fundamentals",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q045",
+    "persona": "someone hitting an error message",
+    "query": "Leaks detected: 1 async op leaked in test",
+    "category": "testing",
+    "difficulty": "hard"
+  }
+]
