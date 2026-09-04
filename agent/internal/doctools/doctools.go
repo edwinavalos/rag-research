@@ -294,7 +294,7 @@ func splitTerms(s string) []string {
 // docTitle returns the first Markdown H1/H2 heading, or the first
 // non-empty line if the doc has none — a cheap proxy for "what is this
 // page about" without a full frontmatter/AST parser.
-func docTitle(content string) string {
+func DocTitle(content string) string {
 	for _, line := range strings.Split(content, "\n") {
 		line = strings.TrimSpace(line)
 		if line == "" {
@@ -347,7 +347,7 @@ func makeRank(root string) func(agent.Context, rankInput) (rankOutput, error) {
 			rel, _ := filepath.Rel(root, path)
 			rel = filepath.ToSlash(rel)
 			content := string(data)
-			title := docTitle(content)
+			title := DocTitle(content)
 			score := scoreDoc(terms, termRes, rel, title, content)
 			if score > 0 {
 				scored = append(scored, rankedDoc{File: rel, Score: score, Title: title})
