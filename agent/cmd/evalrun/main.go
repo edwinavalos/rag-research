@@ -19,6 +19,8 @@ import (
 	"google.golang.org/genai"
 
 	"google.golang.org/adk/v2/agent"
+	"google.golang.org/adk/v2/model"
+	"google.golang.org/adk/v2/model/openaimodel"
 	"google.golang.org/adk/v2/runner"
 
 	"raggraph/internal/anthropicmodel"
@@ -66,10 +68,11 @@ func main() {
 		gtPath       = flag.String("ground_truth", "../eval/ground_truth.json", "path to ground_truth.json")
 		corpusDir    = flag.String("corpus", "../corpus/deno-docs", "path to the markdown corpus root")
 		outPath      = flag.String("out", "../results/results.json", "path to write results JSON")
-		modelName    = flag.String("model", "claude-sonnet-5", "Anthropic model name")
+		provider     = flag.String("provider", "openai", "which model provider to use: \"openai\" or \"anthropic\"")
+		modelName    = flag.String("model", "", "model name; defaults to the smallest current model for the chosen provider")
 		limit        = flag.Int("limit", 0, "if >0, only run the first N queries (for cheap smoke tests)")
 		onlyID       = flag.String("id", "", "if set, only run the query with this id")
-		requestDelay = flag.Duration("request-delay", 3*time.Second, "fixed pause before every Anthropic API call (proactive rate-limit spacing)")
+		requestDelay = flag.Duration("request-delay", 3*time.Second, "fixed pause before every Anthropic API call (anthropic provider only; proactive rate-limit spacing)")
 		queryDelay   = flag.Duration("query-delay", 5*time.Second, "fixed pause between queries, on top of request-delay")
 	)
 	flag.Parse()
@@ -95,18 +98,8 @@ func main() {
 		queries = queries[:*limit]
 	}
 
-	apiKey := os.Getenv("ANTHROPIC_API_KEY")
-	authToken := os.Getenv("ANTHROPIC_AUTH_TOKEN")
-	if apiKey == "" && authToken == "" {
-		log.Fatal("set ANTHROPIC_API_KEY or ANTHROPIC_AUTH_TOKEN")
-	}
-
 	ctx := context.Background()
-	m, err := anthropicmodel.NewModel(ctx, *modelName, &anthropicmodel.ClientConfig{
-		APIKey:       apiKey,
-		AuthToken:    authToken,
-		RequestDelay: *requestDelay,
-	})
+	m, err := buildModel(ctx, *provider, *modelName, *requestDelay)
 	if err != nil {
 		log.Fatalf("build model: %v", err)
 	}
@@ -189,6 +182,42 @@ func main() {
 	fmt.Printf("\n=== %d queries: %d exact hits (%.1f%%), %d acceptable hits (%.1f%%), %d errors, %d unanswerable-in-gt ===\n",
 		total, hits, pct(hits, total), acceptableHits, pct(acceptableHits, total), errs, none)
 	fmt.Printf("results written to %s\n", *outPath)
+}
+
+// buildModel constructs the model.LLM for the chosen provider. "openai"
+// uses adk-go's native openaimodel adapter directly; "anthropic" uses the
+// hand-rolled adapter in internal/anthropicmodel (adk-go ships no
+// Anthropic adapter as of v2.3.0).
+func buildModel(ctx context.Context, provider, modelName string, requestDelay time.Duration) (model.LLM, error) {
+	switch provider {
+	case "openai":
+		apiKey := os.Getenv("OPENAI_API_KEY")
+		if apiKey == "" {
+			return nil, fmt.Errorf("set OPENAI_API_KEY")
+		}
+		if modelName == "" {
+			// gpt-5.4-nano is the smallest/cheapest model in the current
+			// gpt-5.4 line as of this experiment (see `curl .../v1/models`).
+			modelName = "gpt-5.4-nano"
+		}
+		return openaimodel.NewModel(ctx, modelName, &openaimodel.ClientConfig{APIKey: apiKey})
+	case "anthropic":
+		apiKey := os.Getenv("ANTHROPIC_API_KEY")
+		authToken := os.Getenv("ANTHROPIC_AUTH_TOKEN")
+		if apiKey == "" && authToken == "" {
+			return nil, fmt.Errorf("set ANTHROPIC_API_KEY or ANTHROPIC_AUTH_TOKEN")
+		}
+		if modelName == "" {
+			modelName = "claude-sonnet-5"
+		}
+		return anthropicmodel.NewModel(ctx, modelName, &anthropicmodel.ClientConfig{
+			APIKey:       apiKey,
+			AuthToken:    authToken,
+			RequestDelay: requestDelay,
+		})
+	default:
+		return nil, fmt.Errorf("unknown provider %q (want \"openai\" or \"anthropic\")", provider)
+	}
 }
 
 func runOne(ctx context.Context, r *runner.Runner, q string) (explorer.Result, error) {
