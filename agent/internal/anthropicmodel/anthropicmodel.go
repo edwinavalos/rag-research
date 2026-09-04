@@ -11,6 +11,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"iter"
+	"time"
 
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/option"
@@ -28,12 +29,21 @@ type ClientConfig struct {
 	APIKey    string
 	AuthToken string
 	MaxTokens int64 // defaults to 4096 if unset
+
+	// RequestDelay, when > 0, is a fixed pause before every call to the
+	// Messages API — proactive spacing rather than only reacting to a
+	// 429 after the fact. Useful for a rate-limited credential (e.g. a
+	// subscription OAuth token sharing quota with an interactive
+	// session) where the reactive per-node retry backoff alone isn't
+	// enough to stay under the limit.
+	RequestDelay time.Duration
 }
 
 type anthropicModel struct {
-	client    anthropic.Client
-	name      string
-	maxTokens int64
+	client       anthropic.Client
+	name         string
+	maxTokens    int64
+	requestDelay time.Duration
 }
 
 // NewModel constructs an adk-go model.LLM backed by Claude.
@@ -63,9 +73,10 @@ func NewModel(_ context.Context, modelName string, cfg *ClientConfig) (model.LLM
 		maxTokens = 4096
 	}
 	return &anthropicModel{
-		client:    anthropic.NewClient(opts...),
-		name:      modelName,
-		maxTokens: maxTokens,
+		client:       anthropic.NewClient(opts...),
+		name:         modelName,
+		maxTokens:    maxTokens,
+		requestDelay: cfg.RequestDelay,
 	}, nil
 }
 
@@ -85,6 +96,14 @@ func (m *anthropicModel) GenerateContent(ctx context.Context, req *model.LLMRequ
 		if err != nil {
 			yield(nil, err)
 			return
+		}
+		if m.requestDelay > 0 {
+			select {
+			case <-time.After(m.requestDelay):
+			case <-ctx.Done():
+				yield(nil, ctx.Err())
+				return
+			}
 		}
 		resp, err := m.client.Messages.New(ctx, params)
 		if err != nil {

@@ -62,13 +62,15 @@ type evalRecord struct {
 
 func main() {
 	var (
-		queriesPath = flag.String("queries", "../eval/queries.json", "path to queries.json")
-		gtPath      = flag.String("ground_truth", "../eval/ground_truth.json", "path to ground_truth.json")
-		corpusDir   = flag.String("corpus", "../corpus/deno-docs", "path to the markdown corpus root")
-		outPath     = flag.String("out", "../results/results.json", "path to write results JSON")
-		modelName   = flag.String("model", "claude-sonnet-5", "Anthropic model name")
-		limit       = flag.Int("limit", 0, "if >0, only run the first N queries (for cheap smoke tests)")
-		onlyID      = flag.String("id", "", "if set, only run the query with this id")
+		queriesPath  = flag.String("queries", "../eval/queries.json", "path to queries.json")
+		gtPath       = flag.String("ground_truth", "../eval/ground_truth.json", "path to ground_truth.json")
+		corpusDir    = flag.String("corpus", "../corpus/deno-docs", "path to the markdown corpus root")
+		outPath      = flag.String("out", "../results/results.json", "path to write results JSON")
+		modelName    = flag.String("model", "claude-sonnet-5", "Anthropic model name")
+		limit        = flag.Int("limit", 0, "if >0, only run the first N queries (for cheap smoke tests)")
+		onlyID       = flag.String("id", "", "if set, only run the query with this id")
+		requestDelay = flag.Duration("request-delay", 3*time.Second, "fixed pause before every Anthropic API call (proactive rate-limit spacing)")
+		queryDelay   = flag.Duration("query-delay", 5*time.Second, "fixed pause between queries, on top of request-delay")
 	)
 	flag.Parse()
 
@@ -101,8 +103,9 @@ func main() {
 
 	ctx := context.Background()
 	m, err := anthropicmodel.NewModel(ctx, *modelName, &anthropicmodel.ClientConfig{
-		APIKey:    apiKey,
-		AuthToken: authToken,
+		APIKey:       apiKey,
+		AuthToken:    authToken,
+		RequestDelay: *requestDelay,
 	})
 	if err != nil {
 		log.Fatalf("build model: %v", err)
@@ -172,6 +175,10 @@ func main() {
 		}
 
 		results = append(results, rec)
+
+		if i < len(queries)-1 && *queryDelay > 0 {
+			time.Sleep(*queryDelay)
+		}
 	}
 
 	if err := writeResults(*outPath, results); err != nil {
