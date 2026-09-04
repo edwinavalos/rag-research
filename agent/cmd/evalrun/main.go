@@ -22,9 +22,11 @@ import (
 	"google.golang.org/adk/v2/model"
 	"google.golang.org/adk/v2/model/openaimodel"
 	"google.golang.org/adk/v2/runner"
+	"google.golang.org/adk/v2/tool"
 
 	"raggraph/internal/anthropicmodel"
 	"raggraph/internal/doctools"
+	"raggraph/internal/exploreagent"
 	"raggraph/internal/explorer"
 )
 
@@ -68,6 +70,7 @@ func main() {
 		gtPath       = flag.String("ground_truth", "../eval/ground_truth.json", "path to ground_truth.json")
 		corpusDir    = flag.String("corpus", "../corpus/deno-docs", "path to the markdown corpus root")
 		outPath      = flag.String("out", "../results/results.json", "path to write results JSON")
+		method       = flag.String("method", "graph", "exploration method: \"graph\" (search<->judge loop) or \"single-shot\" (Claude Code Explore-agent style, one thorough parallel-tool-call turn)")
 		provider     = flag.String("provider", "openai", "which model provider to use: \"openai\" or \"anthropic\"")
 		modelName    = flag.String("model", "", "model name; defaults to the smallest current model for the chosen provider")
 		limit        = flag.Int("limit", 0, "if >0, only run the first N queries (for cheap smoke tests)")
@@ -109,9 +112,9 @@ func main() {
 		log.Fatalf("build doc tools: %v", err)
 	}
 
-	explorerAgent, err := explorer.New(m, tools)
+	explorerAgent, err := buildAgent(*method, m, tools)
 	if err != nil {
-		log.Fatalf("build explorer agent: %v", err)
+		log.Fatalf("build agent: %v", err)
 	}
 
 	var results []evalRecord
@@ -220,6 +223,48 @@ func buildModel(ctx context.Context, provider, modelName string, requestDelay ti
 	}
 }
 
+// buildAgent selects the exploration method. Both return an agent.Agent
+// with the same contract — Start receives the raw query string, the
+// terminal node emits explorer.Result — so runOne and scoring are
+// identical regardless of which one is chosen.
+func buildAgent(method string, m model.LLM, tools []tool.Tool) (agent.Agent, error) {
+	switch method {
+	case "graph":
+		return explorer.New(m, tools)
+	case "single-shot":
+		return exploreagent.New(m, tools)
+	default:
+		return nil, fmt.Errorf("unknown method %q (want \"graph\" or \"single-shot\")", method)
+	}
+}
+
+// coerceResult accepts an event.Output of either the concrete
+// explorer.Result type — as produced by a Go FunctionNode return value
+// (the graph method's "finalize" node) — or a generic map[string]any —
+// as produced when a terminal AgentNode's schema-validated JSON text is
+// parsed via `var parsed any` (the single-shot method, whose terminal
+// node is the LLM agent itself, not a FunctionNode). Both shapes carry
+// the same fields; this normalizes either into explorer.Result via a
+// JSON round-trip for the map case.
+func coerceResult(out any) (explorer.Result, bool) {
+	switch v := out.(type) {
+	case explorer.Result:
+		return v, true
+	case map[string]any:
+		data, err := json.Marshal(v)
+		if err != nil {
+			return explorer.Result{}, false
+		}
+		var res explorer.Result
+		if err := json.Unmarshal(data, &res); err != nil {
+			return explorer.Result{}, false
+		}
+		return res, true
+	default:
+		return explorer.Result{}, false
+	}
+}
+
 func runOne(ctx context.Context, r *runner.Runner, q string) (explorer.Result, error) {
 	msg := &genai.Content{Role: genai.RoleUser, Parts: []*genai.Part{genai.NewPartFromText(q)}}
 	sessionID := fmt.Sprintf("s-%d", time.Now().UnixNano())
@@ -229,12 +274,26 @@ func runOne(ctx context.Context, r *runner.Runner, q string) (explorer.Result, e
 		if err != nil {
 			return explorer.Result{}, err
 		}
-		if ev == nil || ev.Output == nil {
+		if ev == nil {
 			continue
 		}
-		if res, ok := ev.Output.(explorer.Result); ok {
-			r := res
-			final = &r
+		if os.Getenv("EVALRUN_DEBUG") != "" {
+			text, role, longRunning := "", "", len(ev.LongRunningToolIDs)
+			if ev.LLMResponse.Content != nil {
+				role = ev.LLMResponse.Content.Role
+				for _, p := range ev.LLMResponse.Content.Parts {
+					if p != nil {
+						text += p.Text
+					}
+				}
+			}
+			fmt.Printf("      [debug] author=%q final=%v role=%q longrunning=%d output=%#v text=%.200q\n", ev.Author, ev.IsFinalResponse(), role, longRunning, ev.Output, text)
+		}
+		if ev.Output == nil {
+			continue
+		}
+		if res, ok := coerceResult(ev.Output); ok {
+			final = &res
 		}
 	}
 	if final == nil {
