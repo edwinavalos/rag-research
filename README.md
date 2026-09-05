@@ -15,6 +15,9 @@ were then run against that fixed eval set and scored against ground truth.
 See ["I Think I Reinvented RAG With Grep"](https://n0tls.com/2026-09-03-i-think-i-reinvented-rag-with-grep.html)
 for the full writeup and results table.
 
+The follow-up, ["RAG Research Continued - Fine Tuning Three Bi-Encoders"](https://n0tls.com/2026-09-05-fine-tuning-a-tiny-retriever.html),
+fine-tunes and evaluates bi-encoder retrievers against the same eval set.
+
 ## Layout
 
 ```

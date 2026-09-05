@@ -163,8 +163,8 @@
     "id": "q021",
     "query": "deno process using too much memory in production",
     "ideal_doc": null,
-    "acceptable_docs": ["deploy/reference/apps.md", "runtime/fundamentals/cpu_profiling.md"],
-    "rationale": "No page covers diagnosing or reducing Deno process memory usage; the only 'memory' hits are Deploy build/runtime memory-limit config flags and CPU (not memory) profiling, neither of which is a troubleshooting guide.",
+    "acceptable_docs": [],
+    "rationale": "No page covers diagnosing or reducing Deno process memory usage; the closest related material is deploy/reference/apps.md (Deploy build/runtime memory-limit config flags) and runtime/fundamentals/cpu_profiling.md (CPU, not memory, profiling), but neither is a troubleshooting guide for this.",
     "coverage": "none"
   },
   {
@@ -235,8 +235,8 @@
     "id": "q030",
     "query": "is deno production ready in 2026",
     "ideal_doc": null,
-    "acceptable_docs": ["runtime/fundamentals/stability_and_releases.md"],
-    "rationale": "No page directly makes a 'production ready' claim or comparison for 2026; stability_and_releases.md covers versioning/release channels but doesn't answer the readiness question itself.",
+    "acceptable_docs": [],
+    "rationale": "No page directly makes a 'production ready' claim or comparison for 2026; the closest related material is stability_and_releases.md, which covers versioning/release channels but doesn't answer the readiness question itself.",
     "coverage": "none"
   },
   {
@@ -259,7 +259,7 @@
     "id": "q033",
     "query": "Module not found \"file:///deno-dir/npm/registry.npmjs.org/...\"",
     "ideal_doc": null,
-    "acceptable_docs": ["runtime/migrate/index.md", "runtime/reference/cli/clean.md"],
+    "acceptable_docs": [],
     "rationale": "No page documents this specific cached-npm-module error; the closest related material is the generic 'Cannot find module' FAQ entry and deno clean for clearing a stale cache, neither of which addresses this exact error text.",
     "coverage": "none"
   },
