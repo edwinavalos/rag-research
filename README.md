@@ -1,11 +1,11 @@
 # rag-research
 
 A controlled experiment repo for figuring out why an LLM agent misses the
-right document when searching a docs corpus — and how far you can get
+right document when searching a docs corpus, and how far you can get
 without any vectors at all.
 
 The corpus is [denoland/docs](https://github.com/denoland/docs) (457
-markdown files) — public, real, and not something I authored, so there's no
+markdown files), public, real, and not something I authored, so there's no
 bias in how it happens to be structured. Two subagents built the eval set
 independently: one wrote 45 realistic user queries without reading the
 corpus, the other found each query's actual ground-truth answer doc (or
@@ -21,7 +21,7 @@ fine-tunes and evaluates bi-encoder retrievers against the same eval set.
 ## Layout
 
 ```
-agent/          Go module — all the actual code
+agent/          Go module, all the actual code
   cmd/evalrun/     batch harness: runs the eval set through an exploration
                    method, scores against ground truth, writes results/*.json
   cmd/buildindex/  builds the corpus catalog (out-of-band, checked in)
@@ -34,7 +34,7 @@ agent/          Go module — all the actual code
     llmprovider/     picks the model.LLM adapter (openai or anthropic)
     anthropicmodel/  hand-rolled Anthropic adapter (adk-go ships none)
 eval/           queries.json + ground_truth.json (the fixed eval set)
-index/          corpus_index.json — the built catalog (457 one-line summaries)
+index/          corpus_index.json, the built catalog (457 one-line summaries)
 corpus/         gitignored; clone denoland/docs here to run anything
 results/        evalrun output, gitignored except .gitkeep
 ```
@@ -62,7 +62,7 @@ go run ./cmd/evalrun -method single-shot            # full run, single-shot meth
 
 Key flags (see `-h` for the full list): `-method` (`graph` or
 `single-shot`), `-provider`, `-model`, `-limit`/`-id` to restrict which
-queries run, `-index` to point at a catalog (single-shot only — omit or
+queries run, `-index` to point at a catalog (single-shot only; omit or
 point at a missing file to run without one).
 
 ## Rebuilding the catalog
@@ -73,14 +73,14 @@ go run ./cmd/buildindex
 
 Summarizes every doc in the corpus into one concrete sentence, batched
 through an LLM, and writes `index/corpus_index.json`. This is a separate,
-deliberate step from `evalrun` — the catalog is built once (or whenever the
+deliberate step from `evalrun`: the catalog is built once (or whenever the
 corpus changes) and checked in, not regenerated inside the eval loop.
 
 ## Adding eval cases
 
 The eval set is two flat JSON arrays, matched by `id`:
 
-**`eval/queries.json`** — one entry per query:
+**`eval/queries.json`**, one entry per query:
 
 ```json
 {
@@ -92,12 +92,12 @@ The eval set is two flat JSON arrays, matched by `id`:
 }
 ```
 
-`persona` and `category`/`difficulty` aren't read by the scoring code — they're
+`persona` and `category`/`difficulty` aren't read by the scoring code. They're
 just there to keep the eval set legible and let you group results afterward.
 The one rule that matters for a clean eval: write the query without reading
 the corpus first, so the phrasing doesn't accidentally echo a doc heading.
 
-**`eval/ground_truth.json`** — one entry per query `id`:
+**`eval/ground_truth.json`**, one entry per query `id`:
 
 ```json
 {
@@ -113,15 +113,15 @@ the corpus first, so the phrasing doesn't accidentally echo a doc heading.
 - `ideal_doc` is the doc path (relative to `corpus/deno-docs/`) that best
   answers the query, or `null` if nothing in the corpus does.
 - `acceptable_docs` are other doc paths that would count as a correct-enough
-  answer (used for the "acceptable hit" scoring bucket) — `[]` if none.
+  answer (used for the "acceptable hit" scoring bucket); `[]` if none.
 - `coverage` is `"direct"` (a page answers it squarely), `"partial"` (only
   covered indirectly/incompletely), or `"none"` (nothing in the corpus
-  answers it — `ideal_doc` must be `null` in this case; a correct agent
+  answers it, `ideal_doc` must be `null` in this case; a correct agent
   should come back with no confident prediction, see `score()` in
   `cmd/evalrun/main.go`).
 
 To find the actual ground truth for a new query, explore the corpus
-yourself (`grep`/read through `corpus/deno-docs/`) — don't guess from the
+yourself (`grep`/read through `corpus/deno-docs/`). Don't guess from the
 query's phrasing alone, since the whole point of this eval set is that
 queries and ground truth were derived independently.
 
